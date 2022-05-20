@@ -134,4 +134,14 @@ app
       if (mainWindow === null) createWindow();
     });
   })
+  .then(() => {
+    ipcMain.on('helloworld', () => {
+      const worker = new BrowserWindow({
+        show: true,
+        width: 1024,
+        height: 728,
+      });
+      worker.loadURL('https://baidu.com');
+    });
+  })
   .catch(console.log);
