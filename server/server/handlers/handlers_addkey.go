@@ -6,7 +6,8 @@ import (
 
 	"github.com/gin-gonic/gin"
 
-	"net/http"
+	"encoding/json"
+	"os"
 )
 
 type keyObj struct {
@@ -19,7 +20,8 @@ type keyObj struct {
 func addKey(c *gin.Context) {
 	obj := keyObj{}
 	c.BindJSON(&obj)
-	util.Log().Info(string(obj))
+	str,_ := json.Marshal(obj)
+	util.Log().Info(string(str))
 
 	_ = os.Setenv("AUTHKEY", obj.Key)
 
