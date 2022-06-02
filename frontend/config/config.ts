@@ -72,7 +72,7 @@ export default defineConfig({
     },
   ],
   nodeModulesTransform: { type: 'none' },
-//   mfsu: {},
+  mfsu: {},
   webpack5: {},
   exportStatic: {},
 });
