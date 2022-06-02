@@ -8,15 +8,8 @@ import (
 
 	"os"
 
-	"github.com/go-git/go-git/v5"
-	. "github.com/go-git/go-git/v5/_examples"
-
-	"fmt"
-	"os"
-
 	// git "github.com/go-git/go-git/v5"
 	// . "github.com/go-git/go-git/v5/_examples"
-	"github.com/go-git/go-git/v5/plumbing/transport/http"
 )
 
 const (
@@ -28,7 +21,7 @@ func syncCommit(c *gin.Context) {
 
 	// url, directory, token := os.Args[1], os.Args[2], os.Args[3]
 
-	url := os.Getenv("REMOTEURL")
+	// url := os.Getenv("REMOTEURL")
 	directory := os.Getenv("REPOPATH")
 	token := os.Getenv("AUTHKEY")
 	username := os.Getenv("USERNAME")
