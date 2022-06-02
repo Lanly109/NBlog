@@ -2,9 +2,6 @@ package git
 
 import (
 	"fmt"
-	"io/ioutil"
-	"os"
-	"path/filepath"
 	"time"
 
 	"github.com/go-git/go-git/v5"
@@ -12,7 +9,7 @@ import (
 	"github.com/go-git/go-git/v5/plumbing/object"
 )
 
-func GitAddCommit(directory string) err {
+func GitAddCommit(directory string) (err error){
 	// CheckArgs("<directory>")
 	// directory := os.Args[1]
 
