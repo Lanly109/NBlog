@@ -7,7 +7,7 @@ import (
 )
 
 // Ping 状态检查页面
-func ping(c *gin.Context) {
+func getArti(c *gin.Context) {
 	c.JSON(200, serializer.Response{
 		Code: 0,
 		Msg:  "Pong",
