@@ -2,8 +2,17 @@ import { PageLoading } from '@ant-design/pro-layout';
 import type { RunTimeLayoutConfig } from 'umi';
 import RightContent from '@/components/RightContent';
 import Footer from '@/components/Footer';
+import axios from 'axios'
 
 const isDev = process.env.NODE_ENV === 'development';
+
+if (isDev){
+    axios.defaults.baseURL = "http://127.0.0.1:4523/mock/1040944/api/"
+}else{
+    axios.defaults.baseURL = ""
+}
+
+axios.defaults.withCredentials = true
 
 /** 获取用户信息比较慢的时候会展示一个 loading */
 export const initialStateConfig = {
