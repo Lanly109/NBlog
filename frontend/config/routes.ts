@@ -48,7 +48,13 @@
     name: 'publish',
     icon: 'edit',
     path: '/publish',
-    component: './Welcome',
+    component: './Publish',
+  },
+  {
+    name: 'edit',
+    icon: 'edit',
+    path: '/edit',
+    component: './Edit',
   },
 //   {
 //     name: 'setting',
