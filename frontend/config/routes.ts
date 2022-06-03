@@ -14,30 +14,30 @@
     icon: 'smile',
     component: './Welcome',
   },
-  {
-    path: '/admin',
-    name: 'admin',
-    icon: 'crown',
-    access: 'canAdmin',
-    component: './Admin',
-    routes: [
-      {
-        path: '/admin/sub-page',
-        name: 'sub-page',
-        icon: 'smile',
-        component: './Welcome',
-      },
-      {
-        component: './404',
-      },
-    ],
-  },
-  {
-    name: 'list.table-list',
-    icon: 'table',
-    path: '/list',
-    component: './TableList',
-  },
+//   {
+//     path: '/admin',
+//     name: 'admin',
+//     icon: 'crown',
+//     access: 'canAdmin',
+//     component: './Admin',
+//     routes: [
+//       {
+//         path: '/admin/sub-page',
+//         name: 'sub-page',
+//         icon: 'smile',
+//         component: './Welcome',
+//       },
+//       {
+//         component: './404',
+//       },
+//     ],
+//   },
+//   {
+//     name: 'list.table-list',
+//     icon: 'table',
+//     path: '/list',
+//     component: './TableList',
+//   },
   {
     name: 'articles',
     icon: 'file-text',
@@ -50,12 +50,12 @@
     path: '/publish',
     component: './Welcome',
   },
-  {
-    name: 'setting',
-    icon: 'setting',
-    path: '/setting',
-    component: './TableList',
-  },
+//   {
+//     name: 'setting',
+//     icon: 'setting',
+//     path: '/setting',
+//     component: './TableList',
+//   },
   {
     path: '/',
     icon: 'file-text',

@@ -111,6 +111,7 @@
     "gh-pages": "^3.2.0",
     "husky": "^7.0.4",
     "jsdom-global": "^3.0.0",
+    "junk": "^4.0.0",
     "lint-staged": "^10.0.0",
     "mockjs": "^1.1.0",
     "prettier": "^2.5.0",
