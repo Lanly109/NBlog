@@ -1,13 +1,12 @@
 package handlers
 
 import (
-	"nblog-server/server/util/serializer"
 	"nblog-server/server/util/git"
+	"nblog-server/server/util/serializer"
 
 	"github.com/gin-gonic/gin"
 
 	"os"
-
 	// git "github.com/go-git/go-git/v5"
 	// . "github.com/go-git/go-git/v5/_examples"
 )
@@ -19,18 +18,24 @@ const (
 // Ping 状态检查页面
 func syncCommit(c *gin.Context) {
 
+	if _, ok := os.LookupEnv("REPOPATH"); !ok {
+		c.JSON(400, serializer.Response{
+			Code: 0,
+			Msg:  "Haven`t inited",
+		})
+	}
 	// url, directory, token := os.Args[1], os.Args[2], os.Args[3]
 
 	// url := os.Getenv("REMOTEURL")
 	directory := os.Getenv("REPOPATH")
-	token := os.Getenv("AUTHKEY")
+	token := os.Getenv("TOKEN")
 	username := os.Getenv("USERNAME")
 
 	err := git.GitAddCommit(directory)
 	if err != nil {
 		c.JSON(400, serializer.Response{
 			Code: 0,
-			Msg:  "Fail Add Commit",
+			Msg:  err.Error(),
 		})
 		return
 	}
@@ -43,7 +48,7 @@ func syncCommit(c *gin.Context) {
 	} else {
 		c.JSON(400, serializer.Response{
 			Code: 0,
-			Msg:  "无权限..",
+			Msg:  err.Error(),
 		})
 	}
 }
