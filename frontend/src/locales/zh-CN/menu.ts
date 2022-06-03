@@ -2,6 +2,8 @@ export default {
   'menu.articles': '文章',
   'menu.setting': '设置',
   'menu.publish': '发表',
+  'menu.create': '创建',
+  'menu.edit': '编辑',
   'menu.drafts': '草稿',
   'menu.welcome': '主页',
   'menu.more-blocks': '更多区块',
