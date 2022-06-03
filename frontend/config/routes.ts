@@ -58,7 +58,16 @@
   },
   {
     path: '/',
-    redirect: '/welcome',
+    icon: 'file-text',
+    layout: false,
+    component: './Init',
+  },
+  {
+    name: 'create',
+    icon: 'setting',
+    path: '/create',
+    layout: false,
+    component: './Create',
   },
   {
     component: './404',
