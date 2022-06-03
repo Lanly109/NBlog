@@ -53,11 +53,6 @@ func createRepo(c *gin.Context) {
 	os.Setenv("FRAMEWORK", obj.FRAMEWORK)
 	os.Setenv("SERVER", obj.SERVER)
 
-	var ma map[string]string
-	json.Unmarshal(str, &ma)
-
-	godotenv.Write(ma, filepath.Join(obj.REPOPATH, ".env"))
-
 	err := git.GitClone(os.Getenv("REMOTEURL"), os.Getenv("REPOPATH"), os.Getenv("USERNAME"), os.Getenv("TOKEN"))
 	if err != nil {
 		c.JSON(400, serializer.Response{
@@ -83,6 +78,17 @@ func createRepo(c *gin.Context) {
 	}
 
 	err = git.GitPush(directory, username, token)
+	if err != nil {
+		c.JSON(400, serializer.Response{
+			Code: 0,
+			Msg:  err.Error(),
+		})
+		return
+	}
+
+	var ma map[string]string
+	json.Unmarshal(str, &ma)
+	err = godotenv.Write(ma, filepath.Join(obj.REPOPATH, ".env"))
 	if err == nil {
 		c.JSON(200, serializer.Response{
 			Code: 0,
