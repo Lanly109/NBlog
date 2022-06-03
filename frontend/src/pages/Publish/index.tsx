@@ -6,7 +6,7 @@ import 'vditor/dist/index.css';
 import Vditor from 'vditor';
 import axios from 'axios';
 import { Row, Col } from 'antd';
-import ArticleList from './components/ArticlesList';
+import ArticleForm from './components/PublishForm';
 
 type Header = {
   title?: string;
@@ -14,7 +14,7 @@ type Header = {
   tag?: string[];
 };
 
-const Articles: React.FC = () => {
+const Publish: React.FC = () => {
   const [vd, setVd] = React.useState<Vditor>();
   const [loading, setLoading] = React.useState<boolean>(false);
   const [header, setHeader] = React.useState<Header>();
@@ -68,17 +68,24 @@ const Articles: React.FC = () => {
       <Card>
       <Row wrap={false} gutter={[-5, 0]}>
         <Col flex={6} span={22}>
-            <ArticleList></ArticleList>
+            <ArticleForm getHeader={getChildHeader}></ArticleForm>
         </Col>
-        {/* <Col span={2}>
+        <Col span={2}>
             <Button type="primary" loading={loading} onClick={submit}>
               发表
             </Button>
-        </Col> */}
+        </Col>
       </Row>
         </Card>
+      <Row>
+        <Col flex={1}>
+          <Card>
+            <div id="vditor" className="vditor" />
+          </Card>
+        </Col>
+      </Row>
     </PageContainer>
   );
 };
 
-export default Articles;
+export default Publish;
