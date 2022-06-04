@@ -19,9 +19,9 @@ func NewRouter() *gin.Engine {
 		// 同步云端
 		v1.POST("sync", syncCommit)
 		// 获取文章列表
-		v1.GET("articals", getList)
+		v1.GET("articles", getList)
 		// 获取指定文章
-		v1.GET("articals/:id", getArti)
+		v1.GET("articles/:id", getArti)
 	}
 	return r
 }
