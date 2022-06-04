@@ -11,7 +11,7 @@ import (
 )
 
 const (
-	baseurl = "https://github.com/litten/hexo-theme-yilia"
+	baseurl = "https://github.com/Lanly109/lanly109.github.io.git"
 )
 
 func GitClone(url string, directory string, username string, token string) (err error) {
@@ -22,8 +22,9 @@ func GitClone(url string, directory string, username string, token string) (err 
 			Username: username, // yes, this can be anything except an empty string
 			Password: token,
 		},
-		URL:      baseurl,
-		Progress: os.Stdout,
+		URL:           baseurl,
+		Progress:      os.Stdout,
+		ReferenceName: "refs/heads/hexo",
 	})
 	// CheckIfError(err)
 
