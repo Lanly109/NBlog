@@ -23,6 +23,7 @@ func syncCommit(c *gin.Context) {
 			Code: 0,
 			Msg:  "Haven`t inited",
 		})
+		return
 	}
 	// url, directory, token := os.Args[1], os.Args[2], os.Args[3]
 

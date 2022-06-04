@@ -45,7 +45,19 @@ func createRepo(c *gin.Context) {
 	str, _ := json.Marshal(obj)
 	util.Log().Info(string(str))
 
-	os.Setenv("REPOPATH", obj.REPOPATH)
+	ma := make(map[string]string)
+
+	repopath := filepath.Join(obj.REPOPATH, "src")
+
+	ma["REPOPATH"] = repopath
+	ma["REMOTEURL"] = obj.REMOTEURL
+	ma["USERNAME"] = obj.USERNAME
+	ma["MAIL"] = obj.MAIL
+	ma["TOKEN"] = obj.TOKEN
+	ma["FRAMEWORK"] = obj.FRAMEWORK
+	ma["SERVER"] = obj.SERVER
+
+	os.Setenv("REPOPATH", repopath)
 	os.Setenv("REMOTEURL", obj.REMOTEURL)
 	os.Setenv("USERNAME", obj.USERNAME)
 	os.Setenv("MAIL", obj.MAIL)
@@ -64,6 +76,15 @@ func createRepo(c *gin.Context) {
 
 	fmt.Println(os.Getenv("TOKEN"))
 
+	err = godotenv.Write(ma, filepath.Join(obj.REPOPATH, ".env"))
+	if err != nil {
+		c.JSON(400, serializer.Response{
+			Code: 0,
+			Msg:  err.Error(),
+		})
+		return
+	}
+
 	directory := os.Getenv("REPOPATH")
 	token := os.Getenv("TOKEN")
 	username := os.Getenv("USERNAME")
@@ -78,17 +99,7 @@ func createRepo(c *gin.Context) {
 	}
 
 	err = git.GitPush(directory, username, token)
-	if err != nil {
-		c.JSON(400, serializer.Response{
-			Code: 0,
-			Msg:  err.Error(),
-		})
-		return
-	}
 
-	var ma map[string]string
-	json.Unmarshal(str, &ma)
-	err = godotenv.Write(ma, filepath.Join(obj.REPOPATH, ".env"))
 	if err == nil {
 		c.JSON(200, serializer.Response{
 			Code: 0,
