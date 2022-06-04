@@ -1,6 +1,7 @@
 package handlers
 
 import (
+	"fmt"
 	"nblog-server/server/util/git"
 	"nblog-server/server/util/serializer"
 
@@ -41,6 +42,7 @@ func syncCommit(c *gin.Context) {
 		return
 	}
 	err = git.GitPush(directory, username, token)
+	fmt.Println("=== checkpoint1 ===")
 	if err == nil {
 		c.JSON(200, serializer.Response{
 			Code: 0,

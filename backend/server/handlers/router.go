@@ -22,6 +22,12 @@ func NewRouter() *gin.Engine {
 		v1.GET("articles", getList)
 		// 获取指定文章
 		v1.GET("articles/:id", getArti)
+		// 更新指定文章
+		v1.PUT("articles/:id", updateArti)
+		// 删除指定文章
+		v1.DELETE("articles/:id", deleteArti)
+		// 新建指定文章
+		v1.POST("articles", newArti)
 	}
 	return r
 }
