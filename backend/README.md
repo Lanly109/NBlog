@@ -26,25 +26,38 @@ make run
 ## Directory Structure
 
 ```bash
-nblog-server
+backend
 ├── bin
 │   └── nblog-server
 ├── cmd
-│   └── nblog-server
-│       └── main.go # server entry point, 初始化各服务
+│   └── nblog-server # server entry point, 初始化各服务
+│       └── main.go
 ├── go.mod
+├── go.sum
 ├── Makefile
-├── pkg # 放第三方Utilities
 ├── README.md
 └── server # 与外部逻辑交互的包
     ├── conf # 配置
     │   └── conf.go
     ├── handlers # 处理所有HTTP API请求
+    │   ├── artiobj.go
+    │   ├── handlers_artical.go
+    │   ├── handlers_create.go
     │   ├── handlers_default.go
+    │   ├── handlers_deleteArti.go
+    │   ├── handlers_init.go
+    │   ├── handlers_list.go
+    │   ├── handlers_newArti.go
+    │   ├── handlers_sync.go
+    │   ├── handlers_updateArti.go
     │   └── router.go # 路由
-    └── util # 工具
+    └── util
+        ├── git # git相关操作
+        │   ├── add-commit.go
+        │   ├── clone.go
+        │   └── push.go
         ├── logger.go # 日志
-        └── serializer # 序列化
+        └── serializer # 序列化器
             └── common.go
 ```
 
