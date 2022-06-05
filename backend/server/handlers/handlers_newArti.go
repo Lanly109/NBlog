@@ -11,6 +11,7 @@ import (
 	"strconv"
 
 	"github.com/gin-gonic/gin"
+	"github.com/joho/godotenv"
 )
 
 // Ping 状态检查页面
@@ -44,6 +45,26 @@ func newArti(c *gin.Context) {
 	}
 
 	os.Setenv("NID", strconv.Itoa(aid))
+
+	ma := make(map[string]string)
+	ma["REPOPATH"] = os.Getenv("REPOPATH")
+	ma["REMOTEURL"] = os.Getenv("REMOTEURL")
+	ma["USERNAME"] = os.Getenv("USERNAME")
+	ma["MAIL"] = os.Getenv("MAIL")
+	ma["TOKEN"] = os.Getenv("TOKEN")
+	ma["FRAMEWORK"] = os.Getenv("FRAMEWORK")
+	ma["SERVER"] = os.Getenv("SERVER")
+	ma["ENVPATH"] = os.Getenv("ENVPATH")
+	ma["NID"] = os.Getenv("NID")
+
+	err := godotenv.Write(ma, os.Getenv("ENVPATH"))
+	if err != nil {
+		c.JSON(400, serializer.Response{
+			Code: 0,
+			Msg:  err.Error(),
+		})
+		return
+	}
 
 	path := filepath.Join(rootpath, "source/_posts", strconv.Itoa(aid)+".md")
 

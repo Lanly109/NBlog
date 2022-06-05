@@ -48,6 +48,7 @@ func createRepo(c *gin.Context) {
 	ma := make(map[string]string)
 
 	repopath := filepath.Join(obj.REPOPATH, "src")
+	envpath := filepath.Join(obj.REPOPATH, ".env")
 
 	ma["REPOPATH"] = repopath
 	ma["REMOTEURL"] = obj.REMOTEURL
@@ -56,6 +57,7 @@ func createRepo(c *gin.Context) {
 	ma["TOKEN"] = obj.TOKEN
 	ma["FRAMEWORK"] = obj.FRAMEWORK
 	ma["SERVER"] = obj.SERVER
+	ma["ENVPATH"] = envpath
 
 	os.Setenv("REPOPATH", repopath)
 	os.Setenv("REMOTEURL", obj.REMOTEURL)
@@ -64,6 +66,7 @@ func createRepo(c *gin.Context) {
 	os.Setenv("TOKEN", obj.TOKEN)
 	os.Setenv("FRAMEWORK", obj.FRAMEWORK)
 	os.Setenv("SERVER", obj.SERVER)
+	os.Setenv("ENVPATH", envpath)
 
 	err := git.GitClone(os.Getenv("REMOTEURL"), os.Getenv("REPOPATH"), os.Getenv("USERNAME"), os.Getenv("TOKEN"))
 	if err != nil {
@@ -76,7 +79,7 @@ func createRepo(c *gin.Context) {
 
 	fmt.Println(os.Getenv("TOKEN"))
 
-	err = godotenv.Write(ma, filepath.Join(obj.REPOPATH, ".env"))
+	err = godotenv.Write(ma, envpath)
 	if err != nil {
 		c.JSON(400, serializer.Response{
 			Code: 0,
