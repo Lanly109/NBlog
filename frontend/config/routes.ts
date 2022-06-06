@@ -53,7 +53,7 @@
   {
     name: 'edit',
     icon: 'edit',
-    path: '/edit',
+    path: '/edit/:id',
     component: './Edit',
   },
 //   {

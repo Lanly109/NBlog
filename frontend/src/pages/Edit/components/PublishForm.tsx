@@ -24,10 +24,7 @@ const App: React.FC<selfProps> = (props) => {
   };
 
   React.useEffect(() => {
-      console.log(loading)
-      console.log(header)
       if(loading&&header==={}){
-          console.log(header);
           setTitle(header.title ? header.title : '');
           setCategory(header.category ? header.category : '');
           setLoading(false);
@@ -64,6 +61,8 @@ const App: React.FC<selfProps> = (props) => {
             style={{ borderRadius: 10 }}
             placeholder={header.title}
             onChange={(e) => setTitle(e.target.value)}
+            key={header.title}
+            defaultValue={header.title}
           />
         </Form.Item>
       </Form>
@@ -79,6 +78,8 @@ const App: React.FC<selfProps> = (props) => {
             style={{ borderRadius: 10 }}
             placeholder={header.category}
             onChange={(e) => setCategory(e.target.value)}
+            key={header.category}
+            defaultValue={header.category}
           />
         </Form.Item>
       </Form>

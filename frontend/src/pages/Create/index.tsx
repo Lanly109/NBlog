@@ -11,7 +11,7 @@ import { GithubOutlined, AntCloudOutlined, ShopOutlined, CoffeeOutlined } from '
 
 const Create: React.FC = () => {
   const [path, setPath] = React.useState<string>();
-  const [personalkey, setPersonalkey] = React.useState<string>();
+  const [persontoken, setPersontoken] = React.useState<string>();
   const [username, setUsername] = React.useState<string>();
   const [useremail, setUseremail] = React.useState<string>();
   const [remoteURL, setRemoteURL] = React.useState<string>();
@@ -24,12 +24,12 @@ const Create: React.FC = () => {
     e.preventDefault();
     setLoading(true);
     axios
-      .post(axios.defaults.baseURL + 'create', {
+      .post('create', {
         path: path,
         url: remoteURL,
         username: username,
         useremail: useremail,
-        personalkey: personalkey,
+        persontoken: persontoken,
         framework: framework,
         server: position
       })
@@ -132,7 +132,7 @@ const Create: React.FC = () => {
                 </Col>
 
                 <Col>
-                  <Input placeholder="personal key" onChange={e => setPersonalkey(e.target.value)} value={personalkey}/> 
+                  <Input placeholder="person token" onChange={e => setPersontoken(e.target.value)} value={persontoken}/> 
                 </Col>
               </Row>
               <br/>
