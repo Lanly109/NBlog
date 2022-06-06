@@ -41,6 +41,7 @@ func syncCommit(c *gin.Context) {
 		})
 		return
 	}
+	fmt.Printf("here %s" ,directory)
 	err = git.GitPush(directory, username, token)
 	fmt.Println("=== checkpoint1 ===")
 	if err == nil {
