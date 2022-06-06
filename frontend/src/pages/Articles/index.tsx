@@ -7,6 +7,7 @@ import Vditor from 'vditor';
 import axios from 'axios';
 import { Row, Col } from 'antd';
 import ArticleList from './components/ArticlesList';
+import RepoSetting from './components/RepoSetting';
 
 type Header = {
   title?: string;
@@ -66,17 +67,17 @@ const Articles: React.FC = () => {
   return (
     <PageContainer>
       <Card>
-      <Row wrap={false} gutter={[-5, 0]}>
-        <Col flex={6} span={22}>
+        <Row>
+          <Col flex={6} span={24}>
+            <RepoSetting></RepoSetting>
+          </Col>
+        </Row>
+        <Row wrap={false} gutter={[-5, 0]}>
+          <Col flex={6} span={22}>
             <ArticleList></ArticleList>
-        </Col>
-        {/* <Col span={2}>
-            <Button type="primary" loading={loading} onClick={submit}>
-              发表
-            </Button>
-        </Col> */}
-      </Row>
-        </Card>
+          </Col>
+        </Row>
+      </Card>
     </PageContainer>
   );
 };

@@ -68,6 +68,7 @@ func createRepo(c *gin.Context) {
 	os.Setenv("SERVER", obj.SERVER)
 	os.Setenv("ENVPATH", envpath)
 
+	fmt.Printf("username %s token %s\n", obj.USERNAME, obj.TOKEN)
 	err := git.GitClone(os.Getenv("REMOTEURL"), os.Getenv("REPOPATH"), os.Getenv("USERNAME"), os.Getenv("TOKEN"))
 	if err != nil {
 		c.JSON(400, serializer.Response{
