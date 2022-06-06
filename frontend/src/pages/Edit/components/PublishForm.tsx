@@ -24,7 +24,8 @@ const App: React.FC<selfProps> = (props) => {
   };
 
   React.useEffect(() => {
-    if (loading && header === {}) {
+    if (loading && header.title!==undefined) {
+        console.log(header)
       setTitle(header.title ? header.title : '');
       setCategory(header.category ? header.category : '');
       setLoading(false);
@@ -32,7 +33,9 @@ const App: React.FC<selfProps> = (props) => {
   }, [header]);
 
   React.useEffect(() => {
-    getHeader({ title: title, category: category, tag: tag });
+      if(!loading){
+          getHeader({ title: title, category: category, tag: tag });
+      }
   }, [title, tag, category]);
 
   const titleLayout =
@@ -72,8 +75,7 @@ const App: React.FC<selfProps> = (props) => {
           <Input
             style={{ borderRadius: 10 }}
             placeholder="Title"
-            defaultValue={header.title}
-            value={header.title}
+            value={title}
             onChange={(e) => setTitle(e.target.value)}
           />
         </Form.Item>
@@ -89,9 +91,8 @@ const App: React.FC<selfProps> = (props) => {
           <Input
             style={{ borderRadius: 10 }}
             placeholder="Category"
-            value={header.category}
             onChange={(e) => setCategory(e.target.value)}
-            defaultValue={header.category}
+            value={category}
           />
         </Form.Item>
       </Form>

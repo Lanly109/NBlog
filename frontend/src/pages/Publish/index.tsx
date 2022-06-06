@@ -8,7 +8,7 @@ import axios from 'axios';
 import { Row, Col } from 'antd';
 import ArticleForm from './components/PublishForm';
 import { history } from 'umi';
-
+import {moment} from 'moment'
 
 type Header = {
   title?: string;
@@ -50,7 +50,7 @@ const Publish: React.FC = () => {
       .post('articles', {
         title: header?.title,
         abstract: '',
-        date: 'leeman love you',
+        date: moment().format('YYYY-MM-DD HH:mm:ss'),
         content: vd?.getValue(),
         tag: header?.tag,
         category: header?.category,

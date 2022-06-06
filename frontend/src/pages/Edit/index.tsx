@@ -9,6 +9,7 @@ import axios from 'axios';
 import { Row, Col } from 'antd';
 import ArticleForm from './components/PublishForm';
 import Header from './type/Header'
+import moment from 'moment'
 
 type Params = {
     id?: string;
@@ -46,13 +47,18 @@ const Edit: React.FC = () => {
   }, [vd]);
 
   const submit = (e: SyntheticEvent<HTMLElement>) => {
+    // if(header.title===undefined||header.category===undefined||header.tag===undefined||header.tag.length===0){
+    //     console.log(header)
+    //     message.error('请填写完整信息');
+    //     return;
+    // }
     e.preventDefault();
     setLoading(true);
     axios
       .put('articles/'+params.id, {
         title: header?.title,
         abstract: '',
-        date: '',
+        date: moment().format('YYYY-MM-DD HH:mm:ss'),
         content: vd?.getValue(),
         tag: header?.tag,
         category: header?.category,
