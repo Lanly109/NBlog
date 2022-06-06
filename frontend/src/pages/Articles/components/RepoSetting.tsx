@@ -37,10 +37,14 @@ const App = () => {
   };
 
   const sync = () => {
+    message.info('同步中');
+    console.log("setLoading");
+    setLoading(true);
     axios.post('sync', {}).then((res) => {
       message.success(res.data.msg);
       console.log(res);
     });
+    setLoading(false);
   };
 
   return (
@@ -58,30 +62,18 @@ const App = () => {
           <Row>
             <Col span={10}>
               <Form.Item label="本地仓库">
-                <Input
-                  disabled
-                  style={{ borderRadius: 10 }}
-                  onChange={(e) => setLocal(e.target.value)}
-                  key={local}
-                  defaultValue={local}
-                />
+              {local}
               </Form.Item>
             </Col>
             <Col span={1}></Col>
             <Col span={10}>
               <Form.Item label="远程仓库">
-                <Input
-                  disabled
-                  style={{ borderRadius: 10 }}
-                  onChange={(e) => setRemote(e.target.value)}
-                  key={remote}
-                  defaultValue={remote}
-                />
+              {remote}
               </Form.Item>
             </Col>
             <Col span={1}></Col>
             <Col flex={1} span={2}>
-              <Button type="primary" onClick={sync}>
+              <Button type="primary" loading={loading} onClick={sync}>
                 同步
               </Button>
             </Col>

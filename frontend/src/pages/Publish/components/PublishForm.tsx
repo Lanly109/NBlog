@@ -62,6 +62,7 @@ const App: React.FC<selfProps> = (props) => {
         <Form.Item label="题目">
           <Input
             style={{ borderRadius: 10 }}
+            key="0"
             placeholder="Title"
             onChange={(e) => setTitle(e.target.value)}
           />
@@ -78,6 +79,7 @@ const App: React.FC<selfProps> = (props) => {
           <Input
             style={{ borderRadius: 10 }}
             placeholder="Category"
+            key="0"
             onChange={(e) => setCategory(e.target.value)}
           />
         </Form.Item>

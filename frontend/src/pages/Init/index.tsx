@@ -22,7 +22,7 @@ const Init: React.FC = () => {
       })
       .then((res) => {
         message.success(res.data.msg);
-        history.push('/welcome');
+        history.push('/articles');
       });
     setLoading(false);
   };

@@ -7,6 +7,8 @@ import Vditor from 'vditor';
 import axios from 'axios';
 import { Row, Col } from 'antd';
 import ArticleForm from './components/PublishForm';
+import { history } from 'umi';
+
 
 type Header = {
   title?: string;
@@ -55,6 +57,7 @@ const Publish: React.FC = () => {
       })
       .then((res) => {
         message.success(res.data.msg);
+        history.push('/articles');
       });
     setLoading(false);
   };
