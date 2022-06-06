@@ -73,6 +73,7 @@ const App: React.FC<selfProps> = (props) => {
             style={{ borderRadius: 10 }}
             placeholder="Title"
             defaultValue={header.title}
+            value={header.title}
             onChange={(e) => setTitle(e.target.value)}
           />
         </Form.Item>
@@ -88,6 +89,7 @@ const App: React.FC<selfProps> = (props) => {
           <Input
             style={{ borderRadius: 10 }}
             placeholder="Category"
+            value={header.category}
             onChange={(e) => setCategory(e.target.value)}
             defaultValue={header.category}
           />
