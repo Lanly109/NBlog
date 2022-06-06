@@ -49,7 +49,13 @@ const App: React.FC<selfProps> = (props) => {
         }
       : null;
   const onValuesChange = (_: any, allValues: any) => {
-    setTag(allValues);
+    const parseValues = allValues['names'];
+    parseValues.forEach((val: string | undefined, key:number) => {
+        if (typeof parseValues[key] === 'undefined') {
+            parseValues[key]=''
+        }
+    });
+    setTag(parseValues);
   };
 
   return (
@@ -65,7 +71,8 @@ const App: React.FC<selfProps> = (props) => {
         <Form.Item label="题目">
           <Input
             style={{ borderRadius: 10 }}
-            placeholder="Title"
+            placeholder={header.title}
+            key={header.title}
             defaultValue={header.title}
             onChange={(e) => setTitle(e.target.value)}
           />
@@ -81,8 +88,9 @@ const App: React.FC<selfProps> = (props) => {
         <Form.Item label="类别">
           <Input
             style={{ borderRadius: 10 }}
-            placeholder="Category"
+            placeholder={header.category}
             onChange={(e) => setCategory(e.target.value)}
+            key={header.category}
             defaultValue={header.category}
           />
         </Form.Item>
@@ -93,13 +101,13 @@ const App: React.FC<selfProps> = (props) => {
         name="dynamic_form_item"
         onValuesChange={onValuesChange}
       >
-        <Form.List name="names" initialValue={['']}>
+        <Form.List name="names" initialValue={[""]}>
           {(fields, { add, remove }, { errors }) => (
             <>
               {fields.map((field, index) => (
                 <Form.Item
                   required={false}
-                  key={index}
+                  key={field.key}
                   label={index === 0 ? '标签' : ''}
                   wrapperCol={{ span: 19 }}
                   //   style={{wrap:{false}}}
