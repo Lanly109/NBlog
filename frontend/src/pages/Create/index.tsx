@@ -35,9 +35,9 @@ const Create: React.FC = () => {
       })
       .then((res) => {
         message.success(res.data.msg);
+        setLoading(false);
         history.push('/articles');
       });
-    setLoading(false);
   };
 
 

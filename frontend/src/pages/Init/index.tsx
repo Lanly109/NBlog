@@ -16,15 +16,17 @@ const Init: React.FC = () => {
   const submit = (e: SyntheticEvent<HTMLElement>) => {
     e.preventDefault();
     setLoading(true);
+    const hide = message.loading('Action in progress..', 0);
     axios
       .post('init', {
         path: path
       })
       .then((res) => {
         message.success(res.data.msg);
+        setTimeout(hide, 0);
+        setLoading(false);
         history.push('/articles');
       });
-    setLoading(false);
   };
 
 

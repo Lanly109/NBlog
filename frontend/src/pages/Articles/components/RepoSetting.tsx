@@ -37,14 +37,17 @@ const App = () => {
   };
 
   const sync = () => {
-    message.info('同步中');
-    console.log("setLoading");
+    const hide = message.loading('同步中', 0);
     setLoading(true);
     axios.post('sync', {}).then((res) => {
       message.success(res.data.msg);
-      console.log(res);
+      setTimeout(hide, 0);
+      setLoading(false);
+    }).catch(() => {
+      message.error("同步出错啦qwq请重试");
+      setTimeout(hide, 0);
+      setLoading(false);
     });
-    setLoading(false);
   };
 
   return (
