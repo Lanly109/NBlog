@@ -88,7 +88,7 @@ const App: React.FC<selfProps> = (props) => {
               {fields.map((field, index) => (
                 <Form.Item
                   required={false}
-                  key={field.key}
+                  key={index}
                   label={index === 0 ? '标签' : ''}
                   wrapperCol={{ span: 19 }}
                   //   style={{wrap:{false}}}

@@ -65,8 +65,7 @@ const App: React.FC<selfProps> = (props) => {
         <Form.Item label="题目">
           <Input
             style={{ borderRadius: 10 }}
-            placeholder={header.title}
-            key={header.title}
+            placeholder="Title"
             defaultValue={header.title}
             onChange={(e) => setTitle(e.target.value)}
           />
@@ -82,9 +81,8 @@ const App: React.FC<selfProps> = (props) => {
         <Form.Item label="类别">
           <Input
             style={{ borderRadius: 10 }}
-            placeholder={header.category}
+            placeholder="Category"
             onChange={(e) => setCategory(e.target.value)}
-            key={header.category}
             defaultValue={header.category}
           />
         </Form.Item>
@@ -95,13 +93,13 @@ const App: React.FC<selfProps> = (props) => {
         name="dynamic_form_item"
         onValuesChange={onValuesChange}
       >
-        <Form.List name="names" initialValue={[""]}>
+        <Form.List name="names" initialValue={['']}>
           {(fields, { add, remove }, { errors }) => (
             <>
               {fields.map((field, index) => (
                 <Form.Item
                   required={false}
-                  key={field.key}
+                  key={index}
                   label={index === 0 ? '标签' : ''}
                   wrapperCol={{ span: 19 }}
                   //   style={{wrap:{false}}}
