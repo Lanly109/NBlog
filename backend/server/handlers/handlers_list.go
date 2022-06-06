@@ -130,20 +130,20 @@ func getList(c *gin.Context) {
 				matchArr := compileRegex.FindStringSubmatch(line)
 				fmt.Println("提取字符串: ", matchArr[len(matchArr)-1])
 				obj.Title = matchArr[len(matchArr)-1]
-			// } else if lnum == 3 {
-			// 	compileRegex := regexp.MustCompile("date: (.*?)$")
-			// 	matchArr := compileRegex.FindStringSubmatch(line)
-			// 	fmt.Println("提取字符串: ", matchArr[len(matchArr)-1])
-			// 	obj.Date = matchArr[len(matchArr)-1]
-			// } else if lnum == 4 {
-			// 	compileRegex := regexp.MustCompile("tags: (.*?)$")
-			// 	matchArr := compileRegex.FindStringSubmatch(line)
-			// 	fmt.Println("提取字符串: ", matchArr[len(matchArr)-1])
+            } else if lnum == 3 {
+                compileRegex := regexp.MustCompile("date: (.*?)$")
+                matchArr := compileRegex.FindStringSubmatch(line)
+                fmt.Println("提取字符串: ", matchArr[len(matchArr)-1])
+                obj.Date = matchArr[len(matchArr)-1]
+            } else if lnum == 4 {
+                compileRegex := regexp.MustCompile("tags: (.*?)$")
+                matchArr := compileRegex.FindStringSubmatch(line)
+                fmt.Println("提取字符串: ", matchArr[len(matchArr)-1])
 
-			// 	subs := matchArr[len(matchArr)-1]
+                subs := matchArr[len(matchArr)-1]
 
-			// 	obj.Tag = strings.Split(subs, ", ")
-			// 	obj.Category = obj.Tag[0]
+                obj.Tag = strings.Split(subs, ", ")
+                obj.Category = obj.Tag[0]
 			}
 
 			lnum += 1
