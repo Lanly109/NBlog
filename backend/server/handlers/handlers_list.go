@@ -94,6 +94,29 @@ func getList(c *gin.Context) {
 		r := bufio.NewReader(fp)
 		lnum := 1
 		for {
+			if lnum == 6 {
+				var content []byte
+				cnt := 0
+				for {
+					lineBytes, err := r.ReadByte()
+					cnt += 1
+					if cnt == 20 {
+						obj.Abstract = string(content)
+					}
+					if err != nil && err != io.EOF {
+						panic(err)
+					}
+					if err == io.EOF {
+						break
+					}
+					content = append(content, lineBytes)
+				}
+				fmt.Print(string(content))
+				if cnt < 20 {
+					obj.Abstract = string(content)
+				}
+				break
+			}
 			lineBytes, err := r.ReadBytes('\n')
 			line := strings.TrimSpace(string(lineBytes))
 			if err != nil && err != io.EOF {
@@ -120,6 +143,7 @@ func getList(c *gin.Context) {
 				subs := matchArr[len(matchArr)-1]
 
 				obj.Tag = strings.Split(subs, ", ")
+				obj.Category = obj.Tag[0]
 			}
 
 			lnum += 1

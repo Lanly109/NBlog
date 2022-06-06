@@ -87,15 +87,9 @@ func newArti(c *gin.Context) {
 	w.WriteByte('\n')
 	w.WriteString("date: " + iobj.Date)
 	w.WriteByte('\n')
-	w.WriteString("tags: ")
-	first := true
+	w.WriteString("tags: " + iobj.Category)
 	for _, tag := range iobj.Tag {
-		if first {
-			first = false
-		} else {
-			w.WriteString(", ")
-		}
-		w.WriteString(tag)
+		w.WriteString(", " + tag)
 	}
 	w.WriteByte('\n')
 	w.WriteString("---")
