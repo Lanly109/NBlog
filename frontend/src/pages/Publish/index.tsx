@@ -8,87 +8,92 @@ import axios from 'axios';
 import { Row, Col } from 'antd';
 import ArticleForm from './components/PublishForm';
 import { history } from 'umi';
-import {moment} from 'moment'
+import { moment } from 'moment'
 
 type Header = {
-  title?: string;
-  category?: string;
-  tag?: string[];
+    title?: string;
+    category?: string;
+    tag?: string[];
 };
 
 const Publish: React.FC = () => {
-  const [vd, setVd] = React.useState<Vditor>();
-  const [loading, setLoading] = React.useState<boolean>(false);
-  const [header, setHeader] = React.useState<Header>();
+    const [vd, setVd] = React.useState<Vditor>();
+    const [loading, setLoading] = React.useState<boolean>(false);
+    const [header, setHeader] = React.useState<Header>();
 
-  React.useEffect(() => {
-    if (!vd) {
-      const vditor = new Vditor('vditor', {
-        toolbar: [],
-        width: '100%',
-        minHeight: 600,
-        preview: { maxWidth: 1000, theme: { current: 'light' } },
-        after: () => {
-          setVd(vditor);
-        },
-      });
-    }
-  }, []);
+    React.useEffect(() => {
+        if (!vd) {
+            const vditor = new Vditor('vditor', {
+                toolbar: [],
+                width: '100%',
+                minHeight: 600,
+                preview: { maxWidth: 1000, theme: { current: 'light' } },
+                after: () => {
+                    setVd(vditor);
+                },
+            });
+        }
+    }, []);
 
-  React.useEffect(() => {
-    if (vd) {
-      vd.setValue('# 开始撰写你的文章吧!');
-    }
-  }, [vd]);
+    React.useEffect(() => {
+        if (vd) {
+            vd.setValue('# 开始撰写你的文章吧!');
+        }
+    }, [vd]);
 
-  const submit = (e: SyntheticEvent<HTMLElement>) => {
-    e.preventDefault();
-    setLoading(true);
-    // console.log(vd?.getValue());
-    // console.log(header);
-    axios
-      .post('articles', {
-        title: header?.title,
-        abstract: '',
-        date: moment().format('YYYY-MM-DD HH:mm:ss'),
-        content: vd?.getValue(),
-        tag: header?.tag,
-        category: header?.category,
-      })
-      .then((res) => {
-        message.success(res.data.msg);
-        history.push('/articles');
-      });
-    setLoading(false);
-  };
+    const submit = (e: SyntheticEvent<HTMLElement>) => {
+        if (header === undefined || header.title === undefined || header.title === '' || header.category === undefined || header.category === '' || header.tag === undefined || header.tag.length === 0) {
+            console.log(header)
+            message.error('请填写题目,类别和标签');
+            return;
+        }
+        e.preventDefault();
+        setLoading(true);
+        // console.log(vd?.getValue());
+        // console.log(header);
+        axios
+            .post('articles', {
+                title: header?.title,
+                abstract: '',
+                date: moment().format('YYYY-MM-DD HH:mm:ss'),
+                content: vd?.getValue(),
+                tag: header?.tag,
+                category: header?.category,
+            })
+            .then((res) => {
+                message.success(res.data.msg);
+                history.push('/articles');
+            });
+        setLoading(false);
+    };
 
-  const getChildHeader = (header: Header) => {
-    setHeader(header);
-  };
+    const getChildHeader = (header: Header) => {
+        setHeader(header);
+    };
 
-  return (
-    <PageContainer>
-      <Card>
-      <Row wrap={false} gutter={[-5, 0]}>
-        <Col flex={6} span={22}>
-            <ArticleForm getHeader={getChildHeader}></ArticleForm>
-        </Col>
-        <Col span={2}>
-            <Button type="primary" loading={loading} onClick={submit}>
-              发表
-            </Button>
-        </Col>
-      </Row>
-        </Card>
-      <Row>
-        <Col flex={1}>
-          <Card>
-            <div id="vditor" className="vditor" />
-          </Card>
-        </Col>
-      </Row>
-    </PageContainer>
-  );
+    return (
+        <PageContainer>
+            <Card>
+                <Row wrap={false} gutter={[-5, 0]}>
+                    <Col flex={6} span={22}>
+                        <ArticleForm getHeader={getChildHeader}></ArticleForm>
+                    </Col>
+                    <Col span={2}>
+                        <Button type="primary" loading={loading} onClick={submit}>
+                            发表
+                        </Button>
+                    </Col>
+                </Row>
+            </Card>
+            <Row>
+                <Col flex={1}>
+                    <Card>
+                        <div id="vditor" className="vditor" />
+                    </Card>
+                </Col>
+            </Row>
+        </PageContainer>
+    );
 };
 
 export default Publish;

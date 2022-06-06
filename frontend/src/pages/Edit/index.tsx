@@ -47,11 +47,11 @@ const Edit: React.FC = () => {
   }, [vd]);
 
   const submit = (e: SyntheticEvent<HTMLElement>) => {
-    // if(header.title===undefined||header.category===undefined||header.tag===undefined||header.tag.length===0){
-    //     console.log(header)
-    //     message.error('请填写完整信息');
-    //     return;
-    // }
+    if(header.title===undefined||header.title===''||header.category===undefined||header.category===''||header.tag===undefined||header.tag.length===0){
+        console.log(header)
+        message.error('请填写题目,类别和标签');
+        return;
+    }
     e.preventDefault();
     setLoading(true);
     axios
