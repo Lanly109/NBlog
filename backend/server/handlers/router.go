@@ -28,6 +28,8 @@ func NewRouter() *gin.Engine {
 		v1.DELETE("articles/:id", deleteArti)
 		// 新建指定文章
 		v1.POST("articles", newArti)
+		// 获取仓库URL
+		v1.GET("repository", getPATH)
 	}
 	return r
 }
