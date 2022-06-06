@@ -48,7 +48,7 @@ const Publish: React.FC = () => {
       .post('articles', {
         title: header?.title,
         abstract: '',
-        date: '',
+        date: 'leeman love you',
         content: vd?.getValue(),
         tag: header?.tag,
         category: header?.category,

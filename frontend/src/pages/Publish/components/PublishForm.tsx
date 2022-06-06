@@ -40,6 +40,12 @@ const App: React.FC<selfProps> = (props) => {
       : null;
 
   const onValuesChange = (_: any, allValues: any) => {
+    const parseValues = allValues['names'];
+    parseValues.forEach((val: string | undefined, key:number) => {
+        if (typeof parseValues[key] === 'undefined') {
+            parseValues[key]=''
+        }
+    });
     setTag(allValues);
   };
 
@@ -88,7 +94,7 @@ const App: React.FC<selfProps> = (props) => {
               {fields.map((field, index) => (
                 <Form.Item
                   required={false}
-                  key={index}
+                  key={field.key}
                   label={index === 0 ? '标签' : ''}
                   wrapperCol={{ span: 19 }}
                   //   style={{wrap:{false}}}
