@@ -49,7 +49,7 @@ const Edit: React.FC = () => {
     e.preventDefault();
     setLoading(true);
     axios
-      .post('articles', {
+      .put('articles/'+params.id, {
         title: header?.title,
         abstract: '',
         date: '',

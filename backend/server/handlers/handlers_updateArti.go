@@ -67,7 +67,7 @@ func updateArti(c *gin.Context) {
 		w.WriteString(", " + tag)
 	}
 	w.WriteByte('\n')
-	w.WriteString("---")
+	w.WriteString("---\n")
 
 	w.WriteString(iobj.Content)
 
