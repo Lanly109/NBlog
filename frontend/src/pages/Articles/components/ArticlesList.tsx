@@ -22,7 +22,7 @@ const App: React.FC<MainProps> = (props: MainProps) => {
   React.useEffect(() => {
     if (!articleList) {
       setLoading(true);
-      axios.get(axios.defaults.baseURL + 'articles', {}).then((res) => {
+      axios.get('articles', {}).then((res) => {
         console.log(res.data);
         setArticleList(res.data.data);
       });

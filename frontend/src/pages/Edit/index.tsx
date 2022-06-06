@@ -35,7 +35,7 @@ const Edit: React.FC = () => {
   React.useEffect(() => {
     if (vd) {
         axios
-        .get(axios.defaults.baseURL + 'articles/'+params.id, {
+        .get('articles/'+params.id, {
         })
         .then((res) => {
           console.log(res.data);
@@ -49,7 +49,7 @@ const Edit: React.FC = () => {
     e.preventDefault();
     setLoading(true);
     axios
-      .post(axios.defaults.baseURL + 'articles', {
+      .post('articles', {
         title: header?.title,
         abstract: '',
         date: '',
