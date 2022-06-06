@@ -93,6 +93,7 @@ func newArti(c *gin.Context) {
 	}
 	w.WriteByte('\n')
 	w.WriteString("---")
+	w.WriteByte('\n')
 
 	w.WriteString(iobj.Content)
 
