@@ -17,7 +17,7 @@ const Init: React.FC = () => {
     e.preventDefault();
     setLoading(true);
     axios
-      .post(axios.defaults.baseURL + 'init', {
+      .post('init', {
         path: path
       })
       .then((res) => {

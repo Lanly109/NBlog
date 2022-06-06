@@ -45,7 +45,7 @@ const Publish: React.FC = () => {
     // console.log(vd?.getValue());
     // console.log(header);
     axios
-      .post(axios.defaults.baseURL + 'articles', {
+      .post('articles', {
         title: header?.title,
         abstract: '',
         date: '',

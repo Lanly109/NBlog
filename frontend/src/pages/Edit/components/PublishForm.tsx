@@ -66,9 +66,9 @@ const App: React.FC<selfProps> = (props) => {
           <Input
             style={{ borderRadius: 10 }}
             placeholder={header.title}
-            onChange={(e) => setTitle(e.target.value)}
             key={header.title}
             defaultValue={header.title}
+            onChange={(e) => setTitle(e.target.value)}
           />
         </Form.Item>
       </Form>
@@ -95,7 +95,7 @@ const App: React.FC<selfProps> = (props) => {
         name="dynamic_form_item"
         onValuesChange={onValuesChange}
       >
-        <Form.List name="names" initialValue={[{ tag }]}>
+        <Form.List name="names" initialValue={[""]}>
           {(fields, { add, remove }, { errors }) => (
             <>
               {fields.map((field, index) => (

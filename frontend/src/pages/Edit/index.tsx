@@ -62,6 +62,18 @@ const Edit: React.FC = () => {
       });
     setLoading(false);
   };
+  const delArticle = (e: SyntheticEvent<HTMLElement>) => {
+    e.preventDefault();
+    setLoading(true);
+    axios
+      .delete('articles/'+params.id, {
+      })
+      .then((res) => {
+        message.success(res.data.msg);
+        history.push('/articles');
+      });
+    setLoading(false);
+  };
 
   const getChildHeader = (header: Header) => {
     setHeader(header);
@@ -74,11 +86,19 @@ const Edit: React.FC = () => {
           <Col flex={6} span={22}>
             <ArticleForm getHeader={getChildHeader} header={header}></ArticleForm>
           </Col>
-          <Col span={2}>
+          <Row wrap={true} gutter={[-5, 0]}>
+          <Col span={12}>
             <Button type="primary" loading={loading} onClick={submit}>
               发表
             </Button>
           </Col>
+            <Col md={1} sm={24}></Col>
+          <Col span={12}>
+            <Button type="primary" danger loading={loading} onClick={delArticle}>
+              删除
+            </Button>
+          </Col>
+          </Row>
         </Row>
       </Card>
       <Row>
