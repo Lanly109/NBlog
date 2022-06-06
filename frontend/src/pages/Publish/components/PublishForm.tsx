@@ -46,7 +46,7 @@ const App: React.FC<selfProps> = (props) => {
             parseValues[key]=''
         }
     });
-    setTag(allValues);
+    setTag(parseValues);
   };
 
   return (
