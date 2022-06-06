@@ -31,6 +31,13 @@ const App: React.FC<selfProps> = (props) => {
           wrapperCol: { span: 14 },
         }
       : null;
+  const categoryLayout =
+    formLayout === 'horizontal'
+      ? {
+          //   labelCol: { span: 1 },
+          wrapperCol: { span: 5 },
+        }
+      : null;
 
   const onValuesChange = (_: any, allValues: any) => {
     setTag(allValues);
@@ -55,7 +62,7 @@ const App: React.FC<selfProps> = (props) => {
         </Form.Item>
       </Form>
       <Form
-        layout={'inline'}
+        {...categoryLayout}
         form={form}
         initialValues={{ layout: 'inline' }}
         onValuesChange={onFormLayoutChange}
@@ -75,7 +82,7 @@ const App: React.FC<selfProps> = (props) => {
         name="dynamic_form_item"
         onValuesChange={onValuesChange}
       >
-        <Form.List name="names">
+        <Form.List name="names" initialValue={['']}>
           {(fields, { add, remove }, { errors }) => (
             <>
               {fields.map((field, index) => (
