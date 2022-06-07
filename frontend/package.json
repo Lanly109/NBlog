@@ -3,16 +3,63 @@
   "version": "5.2.0",
   "private": true,
   "author": "lanly",
-  "description": "An out-of-box UI solution for enterprise applications",
+  "description": "NBlog, suitable to Newer to build their own personal blog",
   "main": "main.js",
   "build": {
-    "appId": "name",
-    "mac": {
-      "category": "category",
-      "target": [
-        "dmg",
-        "zip"
+    "productName":"NBlog",
+    "appId": "com.lanly.nblog",
+    "copyright":"NBlog2022",
+    "directories": { 
+      "output": "build"
+    }, 
+    "nsis": {
+      "oneClick": false, 
+      "allowElevation": true, 
+      "allowToChangeInstallationDirectory": true,
+      "installerIcon": "./build/icons/aaa.ico",
+      "uninstallerIcon": "./build/icons/bbb.ico",
+      "installerHeaderIcon": "./build/icons/aaa.ico",
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "NBlog"
+    },
+    "files": [
+      "dist/**/*",
+      "./main.js",
+      "./preload.js",
+      "./nblog-server"
+    ],
+    "dmg": {
+      "contents": [
+        {
+          "x": 410,
+          "y": 150,
+          "type": "link",
+          "path": "/Applications"
+        },
+        {
+          "x": 130,
+          "y": 150,
+          "type": "file"
+        }
       ]
+    },
+    "mac": {
+      "icon": "build/icons/icon.icns"
+    },
+    "win": {
+      "icon": "build/icons/aims.ico",
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "ia32"
+          ]
+        }
+      ]
+    },
+    "linux": {
+      "icon": "build/icons"
     }
   },
   "scripts": {
