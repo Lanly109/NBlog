@@ -46,9 +46,9 @@ jobs:
           if $IS_PR ; then echo $PR_PROMPT; fi
           export BINARY_NAME="$BINARY_PREFIX$GOOS_$GOARCH$BINARY_SUFFIX"
           export CGO_ENABLED=0
-          export GO_VERSION := $(shell go version | cut -d ' ' -f 3)
-          export nblog_PKG := nblog-server
-          GO_LDFLAGS = -X "$(nblog_PKG)/server.Version=$(shell git describe --tags --dirty --always)"
+          export GO_VERSION=$(shell go version | cut -d ' ' -f 3)
+          export nblog_PKG=nblog-server
+          GO_LDFLAGS += -X "$(nblog_PKG)/server.Version=$(shell git describe --tags --dirty --always)"
           GO_LDFLAGS += -X "$(nblog_PKG)/server.GoVersion=$(GO_VERSION)"
           GO_LDFLAGS += -X "$(nblog_PKG)/server.BuildTime=$(shell date -u '+%Y-%m-%d_%H:%M:%S%Z')"
           GO_LDFLAGS += -X "$(nblog_PKG)/server.GitCommitHash=$(shell git rev-parse HEAD)"
