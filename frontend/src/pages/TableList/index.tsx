@@ -26,7 +26,7 @@ const handleAdd = async (fields: API.RuleListItem) => {
     return true;
   } catch (error) {
     hide();
-    message.error('Adding failed, please try again!');
+    message.error(error.response.data.msg);
     return false;
   }
 };

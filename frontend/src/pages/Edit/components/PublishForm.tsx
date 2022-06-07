@@ -15,9 +15,10 @@ const App: React.FC<selfProps> = (props) => {
     const [form] = Form.useForm();
     const [formLayout, setFormLayout] = useState<LayoutType>('horizontal');
     const [category, setCategory] = React.useState('');
+    const [date, setDate] = React.useState('');
     const [tag, setTag] = React.useState(['']);
     const [title, setTitle] = React.useState('');
-    const [loading, setLoading] = useState(true);
+    const [loading, setLoading] = React.useState(true);
 
     const onFormLayoutChange = ({ layout }: { layout: LayoutType }) => {
         setFormLayout(layout);
@@ -28,13 +29,14 @@ const App: React.FC<selfProps> = (props) => {
             console.log(header)
             setTitle(header.title ? header.title : '');
             setCategory(header.category ? header.category : '');
+            setDate(header.date ? header.date : '');
             setLoading(false);
         }
     }, [header]);
 
     React.useEffect(() => {
         if (!loading) {
-            getHeader({ title: title, category: category, tag: tag });
+            getHeader({ title: title, category: category, tag: tag, date: date });
         }
     }, [title, tag, category]);
 
