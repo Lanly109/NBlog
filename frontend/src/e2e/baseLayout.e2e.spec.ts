@@ -1,5 +1,7 @@
-﻿import type { Page } from '@playwright/test';
-import { test, expect } from '@playwright/test';
+﻿import { expect, test } from '@playwright/test';
+
+import type { Page } from '@playwright/test';
+
 const { uniq } = require('lodash');
 const RouterConfig = require('../../config/routes').default;
 
@@ -9,16 +11,16 @@ function formatter(routes: any, parentPath = ''): string[] {
   const fixedParentPath = parentPath.replace(/\/{1,}/g, '/');
   let result: string[] = [];
   routes.forEach((item: { path: string; routes: string }) => {
-    if (item.path && !item.path.startsWith('/')) {
-      result.push(`${fixedParentPath}/${item.path}`.replace(/\/{1,}/g, '/'));
-    }
-    if (item.path && item.path.startsWith('/')) {
-      result.push(`${item.path}`.replace(/\/{1,}/g, '/'));
-    }
-    if (item.routes) {
-      result = result.concat(
-        formatter(item.routes, item.path ? `${fixedParentPath}/${item.path}` : parentPath),
-      );
+      if (item.path && !item.path.startsWith('/')) {
+        result.push(`${fixedParentPath}/${item.path}`.replace(/\/{1,}/g, '/'));
+      }
+      if (item.path && item.path.startsWith('/')) {
+        result.push(`${item.path}`.replace(/\/{1,}/g, '/'));
+      }
+      if (item.routes) {
+        result = result.concat(
+          formatter(item.routes, item.path ? `${fixedParentPath}/${item.path}` : parentPath),
+        );
     }
   });
   return uniq(result.filter((item) => !!item));

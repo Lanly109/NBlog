@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Form, Input, Button, Card, message } from 'antd';
+import { Form, Input, Button, Card, message, Descriptions } from 'antd';
 import { Row, Col } from 'antd';
 import styles from './PublishForm.less';
 import axios from 'axios';
@@ -43,8 +43,8 @@ const App = () => {
       message.success(res.data.msg);
       setTimeout(hide, 0);
       setLoading(false);
-    }).catch(() => {
-      message.error("同步出错啦qwq请重试");
+    }).catch((e) => {
+      message.error("同步出错啦qwq\n" + e.response.data.msg);
       setTimeout(hide, 0);
       setLoading(false);
     });
@@ -63,22 +63,26 @@ const App = () => {
           //   wrapperCol={{ span: 20 }}
         >
           <Row>
-            <Col span={10}>
+            <Col span={20}>
               <Form.Item label="本地仓库">
-              {local}
+                  <Descriptions>
+                      <Descriptions.Item>{local}</Descriptions.Item>
+                  </Descriptions>
               </Form.Item>
             </Col>
-            <Col span={1}></Col>
-            <Col span={10}>
-              <Form.Item label="远程仓库">
-              {remote}
-              </Form.Item>
-            </Col>
-            <Col span={1}></Col>
-            <Col flex={1} span={2}>
+            <Col flex={1} span={1}>
               <Button type="primary" loading={loading} onClick={sync}>
                 同步
               </Button>
+            </Col>
+          </Row>
+          <Row>
+            <Col span={20}>
+              <Form.Item label="远程仓库">
+                  <Descriptions>
+                      <Descriptions.Item>{remote}</Descriptions.Item>
+                  </Descriptions>
+              </Form.Item>
             </Col>
           </Row>
         </Form>

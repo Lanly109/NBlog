@@ -54,31 +54,43 @@ const Edit: React.FC = () => {
     }
     e.preventDefault();
     setLoading(true);
+    const hide = message.loading('更新中', 0);
     axios
       .put('articles/'+params.id, {
         title: header?.title,
         abstract: '',
-        date: moment().format('YYYY-MM-DD HH:mm:ss'),
+        date: header?.date,
         content: vd?.getValue(),
         tag: header?.tag,
         category: header?.category,
       })
       .then((res) => {
+        setTimeout(hide, 0);
         message.success(res.data.msg);
+        history.push('/articles');
+      }).catch((e) => {
+          setTimeout(hide, 0);
+          message.error("更新失败了qwq\n" + e.response.data.msg);
+          setLoading(false);
       });
-    setLoading(false);
   };
+
   const delArticle = (e: SyntheticEvent<HTMLElement>) => {
     e.preventDefault();
     setLoading(true);
+    const hide = message.loading('删除中', 0);
     axios
       .delete('articles/'+params.id, {
       })
       .then((res) => {
+        setTimeout(hide, 0);
         message.success(res.data.msg);
         history.push('/articles');
+      }).catch((e) => {
+          setTimeout(hide, 0);
+          message.error("删除失败了qwq\n" + e.response.data.msg);
+          setLoading(false);
       });
-    setLoading(false);
   };
 
   const getChildHeader = (header: Header) => {
@@ -95,7 +107,7 @@ const Edit: React.FC = () => {
           <Row wrap={true} gutter={[-5, 0]}>
           <Col span={12}>
             <Button type="primary" loading={loading} onClick={submit}>
-              发表
+              更新
             </Button>
           </Col>
             <Col md={1} sm={24}></Col>

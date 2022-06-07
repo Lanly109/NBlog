@@ -8,6 +8,7 @@ import axios from 'axios';
 import { Row, Col } from 'antd';
 import ArticleList from './components/ArticlesList';
 import RepoSetting from './components/RepoSetting';
+import { history } from 'umi';
 
 type Header = {
   title?: string;
@@ -16,53 +17,6 @@ type Header = {
 };
 
 const Articles: React.FC = () => {
-  const [vd, setVd] = React.useState<Vditor>();
-  const [loading, setLoading] = React.useState<boolean>(false);
-  const [header, setHeader] = React.useState<Header>();
-
-  React.useEffect(() => {
-    if (!vd) {
-      const vditor = new Vditor('vditor', {
-        toolbar: [],
-        width: '100%',
-        minHeight: 600,
-        preview: { maxWidth: 1000, theme: { current: 'light' } },
-        after: () => {
-          setVd(vditor);
-        },
-      });
-    }
-  }, []);
-
-  React.useEffect(() => {
-    if (vd) {
-      vd.setValue('# 开始撰写你的文章吧!');
-    }
-  }, [vd]);
-
-  const submit = (e: SyntheticEvent<HTMLElement>) => {
-    e.preventDefault();
-    setLoading(true);
-    // console.log(vd?.getValue());
-    // console.log(header);
-    axios
-      .post('articles', {
-        title: header?.title,
-        abstract: '',
-        date: '',
-        content: vd?.getValue(),
-        tag: header?.tag,
-        category: header?.category,
-      })
-      .then((res) => {
-        message.success(res.data.msg);
-      });
-    setLoading(false);
-  };
-
-  const getChildHeader = (header: Header) => {
-    setHeader(header);
-  };
 
   return (
     <PageContainer>

@@ -8,7 +8,7 @@ import axios from 'axios';
 import { Row, Col } from 'antd';
 import ArticleForm from './components/PublishForm';
 import { history } from 'umi';
-import { moment } from 'moment'
+import dateFormat, { masks } from "dateformat";
 
 type Header = {
     title?: string;
@@ -47,6 +47,7 @@ const Publish: React.FC = () => {
             message.error('请填写题目,类别和标签');
             return;
         }
+        const hide = message.loading('发表中', 0);
         e.preventDefault();
         setLoading(true);
         // console.log(vd?.getValue());
@@ -55,14 +56,19 @@ const Publish: React.FC = () => {
             .post('articles', {
                 title: header?.title,
                 abstract: '',
-                date: moment().format('YYYY-MM-DD HH:mm:ss'),
+                date: dateFormat(new Date(), "yyyy-mm-dd HH:MM:ss"),
                 content: vd?.getValue(),
                 tag: header?.tag,
                 category: header?.category,
             })
             .then((res) => {
+                setTimeout(hide, 0);
                 message.success(res.data.msg);
                 history.push('/articles');
+            }).catch((e) => {
+                setTimeout(hide, 0);
+                message.error("发表失败了qwq\n" + e.response.data.msg);
+                setLoading(false);
             });
         setLoading(false);
     };
