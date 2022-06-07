@@ -1,13 +1,13 @@
 ﻿export default [
-  {
-    path: '/user',
-    layout: false,
-    routes: [
-      {
-        component: './404',
-      },
-    ],
-  },
+// {
+//   path: '/user',
+//   layout: false,
+//   routes: [
+//     {
+//       component: './404',
+//     },
+//   ],
+// },
 //   {
 //     path: '/welcome',
 //     name: 'welcome',
@@ -54,6 +54,7 @@
     name: 'edit',
     icon: 'edit',
     path: '/edit/:id',
+    hideInMenu: true,
     component: './Edit',
   },
 //   {
@@ -66,6 +67,7 @@
     path: '/',
     icon: 'file-text',
     layout: false,
+    hideInMenu: true,
     component: './Init',
   },
   {
@@ -73,6 +75,7 @@
     icon: 'setting',
     path: '/create',
     layout: false,
+    hideInMenu: true,
     component: './Create',
   },
   {
