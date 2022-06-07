@@ -13,5 +13,5 @@ func main() {
 	// 装载路由
 	util.Log().Info("nblog-server start severing...")
 	r := handlers.NewRouter()
-	r.Run(":3000")
+	r.Run(":13145")
 }
