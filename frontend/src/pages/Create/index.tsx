@@ -23,6 +23,7 @@ const Create: React.FC = () => {
   const submit = (e: SyntheticEvent<HTMLElement>) => {
     e.preventDefault();
     setLoading(true);
+    const hide = message.loading('创建中', 0);
     axios
       .post('create', {
         path: path,
@@ -37,22 +38,22 @@ const Create: React.FC = () => {
         message.success(res.data.msg);
         setLoading(false);
         history.push('/articles');
-      });
+      }).catch((e) => {
+          message.error(e.response.data.msg);
+          setTimeout(hide, 0);
+          setLoading(false);
+      })
   };
 
 
+    const ipc = window.require('electron').ipcRenderer;
     const handleClick = (e) => {
-        // const {dialog} = require('electron').remote
-        // dialog.showOpenDialog({
-        //         title:'请选择你的文件',
-        //         defaultPath:'',//默认打开的文件路径选择
-        //         buttonLabel:'就是这里！'
-        //     }).then(res=>{
-        //         setPath(res.filePaths[0])
-        //     }).catch(req=>{
-        //         console.log(req)
-        //     })
+        ipc.send('open-file-dialog-for-file')
+        ipc.on('selected-file', function (event, path) {
+            setPath(path);
+        });
     }
+
 
   return (
       <div className="init">
