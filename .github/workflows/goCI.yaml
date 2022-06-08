@@ -1,6 +1,9 @@
 name: GO_CI
 
-on: [push, pull_request,workflow_dispatch]
+on: 
+  push:
+    paths:
+      - 'backend/'
 
 env:
   BINARY_PREFIX: "nblog_"
