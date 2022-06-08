@@ -86,8 +86,7 @@ jobs:
         shell: bash
         run: |
           cd frontend
-          yarn global add rimraf
-          rimraf "build/!(*.exe)"
+          yarn rimraf "build/!(*.exe)"
           cd ..
 
       - name: Upload artifacts
@@ -178,8 +177,7 @@ jobs:
         shell: bash
         run: |
           cd frontend
-          yarn global add rimraf
-          rimraf "build/!(*.deb)"
+          yarn rimraf "build/!(*.deb)"
           cd ..
       
       - name: Upload artifacts
@@ -270,8 +268,7 @@ jobs:
         shell: bash
         run: |
           cd frontend
-          yarn global add rimraf
-          rimraf "build/!(*.dmg)"
+          yarn rimraf "build/!(*.dmg)"
           cd ..
           
       - name: Upload artifacts
