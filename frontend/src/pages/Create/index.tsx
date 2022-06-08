@@ -36,6 +36,7 @@ const Create: React.FC = () => {
       })
       .then((res) => {
         message.success(res.data.msg);
+        setTimeout(hide, 0);
         setLoading(false);
         history.push('/articles');
       }).catch((e) => {
