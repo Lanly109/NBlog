@@ -85,6 +85,8 @@ func getList(c *gin.Context) {
 			return err
 		}
 
+        defer fp.Close()
+
 		obj := dataObj{}
 
 		obj.Abstract = ""

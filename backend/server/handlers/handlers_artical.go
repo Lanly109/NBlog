@@ -42,6 +42,8 @@ func getArti(c *gin.Context) {
 		return
 	}
 
+    defer fp.Close()
+
 	obj := infoObj{}
 
 	obj.Abstract = ""
