@@ -59,6 +59,8 @@ jobs:
 
       - name: Yarn Cache
         uses: c-hive/gha-yarn-cache@v2
+        with:
+          directory: frontend
 
       - name: Install Dependencies and Build Page
         run: |
@@ -76,29 +78,34 @@ jobs:
           cd frontend
           cp "./backend/bin/$BINARY_NAME" .
           ./ci.sh $OS $ARCH
+          cd ..
         
       - name: Cleanup Artifacts for Windows
         if: matrix.os == 'windows'
         run: |
+          cd frontend
           yarn global add rimraf
           rimraf "build/!(*.exe)"
+          cd ..
       
       - name: Cleanup Artifacts for MacOS
         if: matrix.os == 'darwin'
         run: |
+          cd frontend
           yarn global add rimraf
           rimraf "build/!(*.dmg)"
+          cd ..
           
       - name: upload artifacts
         uses: actions/upload-artifact@v3.0.0
         with:
           name: ${{ matrix.os }}_${{ matrix.arch }}
-          path: build
+          path: frontend/build
           
       - name: release
         uses: softprops/action-gh-release@v0.1.14
         if: startsWith(github.ref, 'refs/tags/')
         with:
-          files: "build/**"
+          files: "frontend/build/**"
         env:
           GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }}
