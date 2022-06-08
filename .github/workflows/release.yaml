@@ -11,7 +11,7 @@ env:
   PR_PROMPT: "::warning:: Build artifact will not be uploaded due to the workflow is trigged by pull request."
 
 jobs:
-  build:
+  build-windows-linux:
     name: Build binary Windows-Linux
     runs-on: windows-latest
     strategy:
@@ -115,8 +115,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }}
 
-
-  build:
+  build-mac:
     name: Build binary MacOS
     runs-on: macos-latest
     strategy:
