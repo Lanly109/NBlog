@@ -43,16 +43,18 @@ jobs:
           IS_PR: ${{ !!github.head_ref }}
         shell: bash
         run: |
+          cd backend
           if [ $GOOS = "windows" ]; then export BINARY_SUFFIX="$BINARY_SUFFIX.exe"; fi
           if $IS_PR ; then echo $PR_PROMPT; fi
           export BINARY_NAME="$BINARY_PREFIX$GOOS_$GOARCH$BINARY_SUFFIX"
           export nblog_PKG="nblog-server"
           export GO_LDFLAGS="-X '$nblog_PKG/server.Version=`git describe --tags --dirty --always`' -X '$nblog_PKG/server.GitCommitHash=`git rev-parse HEAD`'"
-          export MAIN_ENTRYPOINT=backend/cmd/nblog-server/main.go
-          go build -o "backend/bin/$BINARY_NAME" -trimpath -ldflags "$GO_LDFLAGS" "$MAIN_ENTRYPOINT"
+          export MAIN_ENTRYPOINT=cmd/nblog-server/main.go
+          go build -o "bin/$BINARY_NAME" -trimpath -ldflags "$GO_LDFLAGS" "$MAIN_ENTRYPOINT"
+          cd ..
       - name: Upload artifact
         uses: actions/upload-artifact@v2
         if: ${{ !github.head_ref }}
         with:
           name: ${{ matrix.goos }}_${{ matrix.goarch }}
-          path: frontend/
+          path: backend/bin/
