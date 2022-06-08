@@ -16,9 +16,9 @@
       "oneClick": false, 
       "allowElevation": true, 
       "allowToChangeInstallationDirectory": true,
-      "installerIcon": "./build/icons/aaa.ico",
-      "uninstallerIcon": "./build/icons/bbb.ico",
-      "installerHeaderIcon": "./build/icons/aaa.ico",
+      "installerIcon": "./public/48.ico",
+      "uninstallerIcon": "",
+      "installerHeaderIcon": "./public/48.ico",
       "createDesktopShortcut": true,
       "createStartMenuShortcut": true,
       "shortcutName": "NBlog"
@@ -45,10 +45,10 @@
       ]
     },
     "mac": {
-      "icon": "build/icons/icon.icns"
+      "icon": "./public/48.icns"
     },
     "win": {
-      "icon": "build/icons/aims.ico",
+      "icon": "./public/48.ico",
       "target": [
         {
           "target": "nsis",
@@ -59,12 +59,14 @@
       ]
     },
     "linux": {
-      "icon": "build/icons"
+      "icon": "./public/48.ico"
     }
   },
   "scripts": {
-    "ebuild": "electron-builder -m",
-    "ebuildw": "electron-packager . nblog --win --out=release --arch=x64 --electron-version=18.2.4 --overwrite  --ignore=node_modules",
+    "ebuildm": "electron-builder --mac",
+    "ebuildw": "electron-builder --win --x64",
+    "ebuildl": "electron-builder -l",
+    "ebuildp": "electron-packager . nblog --win --out=release --arch=x64 --electron-version=18.2.4 --overwrite  --ignore=node_modules",
     "estart": "electron .",
     "analyze": "cross-env ANALYZE=1 umi build",
     "build": "umi build",
