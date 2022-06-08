@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "author": "lanly",
+  "homepage": "https://github.com/Lanly109/NBlog",
   "description": "NBlog, suitable to Newer to build their own personal blog",
   "main": "main.js",
   "build": {
