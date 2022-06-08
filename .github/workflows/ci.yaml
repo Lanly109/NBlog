@@ -1,4 +1,4 @@
-name: CI
+name: GO_CI
 
 on: [push, pull_request,workflow_dispatch]
 
@@ -41,6 +41,7 @@ jobs:
           GOOS: ${{ matrix.goos }}
           GOARCH: ${{ matrix.goarch }}
           IS_PR: ${{ !!github.head_ref }}
+        shell: bash
         run: |
           if [ $GOOS = "windows" ]; then export BINARY_SUFFIX="$BINARY_SUFFIX.exe"; fi
           if $IS_PR ; then echo $PR_PROMPT; fi
@@ -54,10 +55,10 @@ jobs:
           GO_LDFLAGS += -X "$(nblog_PKG)/server.GitCommitHash=$(shell git rev-parse HEAD)"
           GO_LDFLAGS += -X "$(nblog_PKG)/server.GitBranch=$(shell git rev-parse --abbrev-ref HEAD)"
           export MAIN_ENTRYPOINT := backend/cmd/nblog-server/main.go
-          go build -o "output/$BINARY_NAME" -trimpath -ldflags "$GO_LDFLAGS" "$MAIN_ENTRYPOINT"
+          go build -o "backend/bin/$BINARY_NAME" -trimpath -ldflags "$GO_LDFLAGS" "$MAIN_ENTRYPOINT"
       - name: Upload artifact
         uses: actions/upload-artifact@v2
         if: ${{ !github.head_ref }}
         with:
           name: ${{ matrix.goos }}_${{ matrix.goarch }}
-          path: output/
+          path: frontend/
