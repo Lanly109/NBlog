@@ -23,7 +23,7 @@ jobs:
         exclude:
           - os: windows
             arch: "arm"
-      fail-fast: true
+      fail-fast: false
     steps:
       - uses: actions/checkout@v2
       - name: Setup Go environment
@@ -114,7 +114,7 @@ jobs:
         exclude:
           - os: linux
             arch: "386"
-      fail-fast: true
+      fail-fast: false
     steps:
       - uses: actions/checkout@v2
       - name: Setup Go environment
@@ -207,7 +207,7 @@ jobs:
             arch: arm
           - os: darwin
             arch: "386"
-      fail-fast: true
+      fail-fast: false
     steps:
       - uses: actions/checkout@v2
       - name: Setup Go environment
