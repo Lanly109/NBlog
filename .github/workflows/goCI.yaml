@@ -1,6 +1,9 @@
-name: CI
+name: GO_CI
 
-on: [push, pull_request,workflow_dispatch]
+on: 
+  push:
+    paths:
+      - 'backend/'
 
 env:
   BINARY_PREFIX: "nblog_"
@@ -22,6 +25,10 @@ jobs:
             goarch: arm
           - goos: darwin
             goarch: "386"
+          - goos: linux
+            goarch: "386"
+          - goos: windows
+            goarch: "arm"
       fail-fast: true
     steps:
       - uses: actions/checkout@v2
@@ -41,23 +48,21 @@ jobs:
           GOOS: ${{ matrix.goos }}
           GOARCH: ${{ matrix.goarch }}
           IS_PR: ${{ !!github.head_ref }}
+        shell: bash
         run: |
+          cd backend
           if [ $GOOS = "windows" ]; then export BINARY_SUFFIX="$BINARY_SUFFIX.exe"; fi
           if $IS_PR ; then echo $PR_PROMPT; fi
           export BINARY_NAME="$BINARY_PREFIX$GOOS_$GOARCH$BINARY_SUFFIX"
-          export CGO_ENABLED=0
-          export GO_VERSION=$(shell go version | cut -d ' ' -f 3)
-          export nblog_PKG=nblog-server
-          GO_LDFLAGS += -X "$(nblog_PKG)/server.Version=$(shell git describe --tags --dirty --always)"
-          GO_LDFLAGS += -X "$(nblog_PKG)/server.GoVersion=$(GO_VERSION)"
-          GO_LDFLAGS += -X "$(nblog_PKG)/server.BuildTime=$(shell date -u '+%Y-%m-%d_%H:%M:%S%Z')"
-          GO_LDFLAGS += -X "$(nblog_PKG)/server.GitCommitHash=$(shell git rev-parse HEAD)"
-          GO_LDFLAGS += -X "$(nblog_PKG)/server.GitBranch=$(shell git rev-parse --abbrev-ref HEAD)"
-          export MAIN_ENTRYPOINT := backend/cmd/nblog-server/main.go
-          go build -o "output/$BINARY_NAME" -trimpath -ldflags "$GO_LDFLAGS" "$MAIN_ENTRYPOINT"
+          export nblog_PKG="nblog-server"
+          export GO_LDFLAGS="-X '$nblog_PKG/server.Version=`git describe --tags --dirty --always`' -X '$nblog_PKG/server.GitCommitHash=`git rev-parse HEAD`'"
+          export MAIN_ENTRYPOINT=cmd/nblog-server/main.go
+          go mod tidy
+          go build -o "bin/$BINARY_NAME" -trimpath -ldflags "$GO_LDFLAGS" "$MAIN_ENTRYPOINT"
+          cd ..
       - name: Upload artifact
         uses: actions/upload-artifact@v2
         if: ${{ !github.head_ref }}
         with:
           name: ${{ matrix.goos }}_${{ matrix.goarch }}
-          path: output/
+          path: backend/bin/

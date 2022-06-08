@@ -1,0 +1,286 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+env:
+  BINARY_PREFIX: "nblog-server"
+  BINARY_SUFFIX: ""
+  COMMIT_ID: "${{ github.sha }}"
+  PR_PROMPT: "::warning:: Build artifact will not be uploaded due to the workflow is trigged by pull request."
+
+jobs:
+
+  build-windows:
+    name: Build binary Windows
+    runs-on: macos-latest
+    strategy:
+      matrix:
+        # build and publish in parallel: linux/386, linux/amd64, windows/386, windows/amd64, darwin/amd64, darwin/arm64
+        os: [windows]
+        arch: ["386", amd64, arm, arm64]
+        exclude:
+          - os: windows
+            arch: "arm"
+      fail-fast: false
+    steps:
+      - uses: actions/checkout@v2
+      - name: Setup Go environment
+        uses: actions/setup-go@v2.1.3
+        with:
+          go-version: 1.18
+
+      - name: Cache downloaded module
+        uses: actions/cache@v2
+        with:
+          path: |
+            ~/.cache/go-build
+            ~/go/pkg/mod
+          key: ${{ runner.os }}-go-${{ matrix.os }}-${{ matrix.arch }}-${{ hashFiles('**/go.sum') }}
+
+      - name: Build backend binary file
+        env:
+          GOOS: ${{ matrix.os }}
+          GOARCH: ${{ matrix.arch }}
+          IS_PR: ${{ !!github.head_ref }}
+        shell: bash
+        run: |
+          cd backend
+          if [ $GOOS = "windows" ]; then export BINARY_SUFFIX="$BINARY_SUFFIX.exe"; fi
+          if $IS_PR ; then echo $PR_PROMPT; fi
+          export BINARY_NAME="$BINARY_PREFIX$BINARY_SUFFIX"
+          export nblog_PKG="nblog-server"
+          export GO_LDFLAGS="-X '$nblog_PKG/server.Version=`git describe --tags --dirty --always`' -X '$nblog_PKG/server.GitCommitHash=`git rev-parse HEAD`'"
+          export MAIN_ENTRYPOINT=cmd/nblog-server/main.go
+          go mod tidy
+          go build -o "bin/$BINARY_NAME" -trimpath -ldflags "$GO_LDFLAGS" "$MAIN_ENTRYPOINT"
+          cd ..
+
+      - name: Yarn Cache
+        uses: c-hive/gha-yarn-cache@v2
+        with:
+          directory: frontend
+
+      - name: Install Dependencies and Build Page
+        shell: bash
+        run: |
+          cd frontend
+          yarn
+          yarn build
+
+      - name: Build Electron App
+        env:
+          OS: ${{ matrix.os }}
+          ARCH: ${{ matrix.arch }}
+        shell: bash
+        run: |
+          if [ $OS = "windows" ]; then export BINARY_SUFFIX="$BINARY_SUFFIX.exe"; fi
+          export BINARY_NAME="$BINARY_PREFIX$BINARY_SUFFIX"
+          cd frontend
+          cp "../backend/bin/$BINARY_NAME" .
+          ./ci.sh $OS $ARCH
+          cd ..
+        
+      - name: Cleanup Artifacts for Windows
+        shell: bash
+        run: |
+          cd frontend
+          yarn rimraf "build/!(*.exe)"
+          cd ..
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v3.0.0
+        with:
+          name: ${{ matrix.os }}_${{ matrix.arch }}
+          path: frontend/build
+          
+      - name: Release
+        uses: softprops/action-gh-release@v0.1.14
+        if: startsWith(github.ref, 'refs/tags/')
+        with:
+          files: "frontend/build/**"
+        env:
+          GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+
+  build-linux:
+    name: Build binary Linux
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        # build and publish in parallel: linux/386, linux/amd64, windows/386, windows/amd64, darwin/amd64, darwin/arm64
+        os: [linux]
+        arch: ["386", amd64, arm, arm64]
+        exclude:
+          - os: linux
+            arch: "386"
+      fail-fast: false
+    steps:
+      - uses: actions/checkout@v2
+      - name: Setup Go environment
+        uses: actions/setup-go@v2.1.3
+        with:
+          go-version: 1.18
+
+      - name: Cache downloaded module
+        uses: actions/cache@v2
+        with:
+          path: |
+            ~/.cache/go-build
+            ~/go/pkg/mod
+          key: ${{ runner.os }}-go-${{ matrix.os }}-${{ matrix.arch }}-${{ hashFiles('**/go.sum') }}
+
+      - name: Build backend binary file
+        env:
+          GOOS: ${{ matrix.os }}
+          GOARCH: ${{ matrix.arch }}
+          IS_PR: ${{ !!github.head_ref }}
+        shell: bash
+        run: |
+          cd backend
+          if [ $GOOS = "windows" ]; then export BINARY_SUFFIX="$BINARY_SUFFIX.exe"; fi
+          if $IS_PR ; then echo $PR_PROMPT; fi
+          export BINARY_NAME="$BINARY_PREFIX$BINARY_SUFFIX"
+          export nblog_PKG="nblog-server"
+          export GO_LDFLAGS="-X '$nblog_PKG/server.Version=`git describe --tags --dirty --always`' -X '$nblog_PKG/server.GitCommitHash=`git rev-parse HEAD`'"
+          export MAIN_ENTRYPOINT=cmd/nblog-server/main.go
+          go mod tidy
+          go build -o "bin/$BINARY_NAME" -trimpath -ldflags "$GO_LDFLAGS" "$MAIN_ENTRYPOINT"
+          cd ..
+
+      - name: Yarn Cache
+        uses: c-hive/gha-yarn-cache@v2
+        with:
+          directory: frontend
+
+      - name: Install Dependencies and Build Page
+        shell: bash
+        run: |
+          cd frontend
+          yarn
+          yarn build
+
+      - name: Build Electron App
+        env:
+          OS: ${{ matrix.os }}
+          ARCH: ${{ matrix.arch }}
+        shell: bash
+        run: |
+          if [ $OS = "windows" ]; then export BINARY_SUFFIX="$BINARY_SUFFIX.exe"; fi
+          export BINARY_NAME="$BINARY_PREFIX$BINARY_SUFFIX"
+          cd frontend
+          cp "../backend/bin/$BINARY_NAME" .
+          ./ci.sh $OS $ARCH
+          cd ..
+        
+      - name: Cleanup Artifacts for Linux
+        shell: bash
+        run: |
+          cd frontend
+          yarn rimraf "build/!(*.deb)"
+          cd ..
+      
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v3.0.0
+        with:
+          name: ${{ matrix.os }}_${{ matrix.arch }}
+          path: frontend/build
+          
+      - name: Release
+        uses: softprops/action-gh-release@v0.1.14
+        if: startsWith(github.ref, 'refs/tags/')
+        with:
+          files: "frontend/build/**"
+        env:
+          GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+
+  build-mac:
+    name: Build binary MacOS
+    runs-on: macos-latest
+    strategy:
+      matrix:
+        # build and publish in parallel: linux/386, linux/amd64, windows/386, windows/amd64, darwin/amd64, darwin/arm64
+        os: [darwin]
+        arch: ["386", amd64, arm, arm64]
+        exclude:
+          - os: darwin
+            arch: arm
+          - os: darwin
+            arch: "386"
+      fail-fast: false
+    steps:
+      - uses: actions/checkout@v2
+      - name: Setup Go environment
+        uses: actions/setup-go@v2.1.3
+        with:
+          go-version: 1.18
+
+      - name: Cache downloaded module
+        uses: actions/cache@v2
+        with:
+          path: |
+            ~/.cache/go-build
+            ~/go/pkg/mod
+          key: ${{ runner.os }}-go-${{ matrix.os }}-${{ matrix.arch }}-${{ hashFiles('**/go.sum') }}
+
+      - name: Build backend binary file
+        env:
+          GOOS: ${{ matrix.os }}
+          GOARCH: ${{ matrix.arch }}
+          IS_PR: ${{ !!github.head_ref }}
+        shell: bash
+        run: |
+          cd backend
+          if $IS_PR ; then echo $PR_PROMPT; fi
+          export BINARY_NAME="$BINARY_PREFIX$BINARY_SUFFIX"
+          export nblog_PKG="nblog-server"
+          export GO_LDFLAGS="-X '$nblog_PKG/server.Version=`git describe --tags --dirty --always`' -X '$nblog_PKG/server.GitCommitHash=`git rev-parse HEAD`'"
+          export MAIN_ENTRYPOINT=cmd/nblog-server/main.go
+          go mod tidy
+          go build -o "bin/$BINARY_NAME" -trimpath -ldflags "$GO_LDFLAGS" "$MAIN_ENTRYPOINT"
+          cd ..
+
+      - name: Yarn Cache
+        uses: c-hive/gha-yarn-cache@v2
+        with:
+          directory: frontend
+
+      - name: Install Dependencies and Build Page
+        shell: bash
+        run: |
+          cd frontend
+          yarn
+          yarn build
+
+      - name: Build Electron App
+        env:
+          OS: ${{ matrix.os }}
+          ARCH: ${{ matrix.arch }}
+        shell: bash
+        run: |
+          export BINARY_NAME="$BINARY_PREFIX$BINARY_SUFFIX"
+          cd frontend
+          cp "../backend/bin/$BINARY_NAME" .
+          ./ci.sh $OS $ARCH
+          cd ..
+        
+      - name: Cleanup Artifacts for MacOS
+        shell: bash
+        run: |
+          cd frontend
+          yarn rimraf "build/!(*.dmg)"
+          cd ..
+          
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v3.0.0
+        with:
+          name: ${{ matrix.os }}_${{ matrix.arch }}
+          path: frontend/build
+          
+      - name: Release
+        uses: softprops/action-gh-release@v0.1.14
+        if: startsWith(github.ref, 'refs/tags/')
+        with:
+          files: "frontend/build/**"
+        env:
+          GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }}

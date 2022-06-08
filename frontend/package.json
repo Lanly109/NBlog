@@ -1,20 +1,21 @@
 {
-  "name": "ant-design-pro",
-  "version": "5.2.0",
+  "name": "NBlog",
+  "version": "1.0.0",
   "private": true,
-  "author": "lanly",
+  "author": "lanly <ll1094916227@gmail.com>",
+  "homepage": "https://github.com/Lanly109/NBlog",
   "description": "NBlog, suitable to Newer to build their own personal blog",
   "main": "main.js",
   "build": {
-    "productName":"NBlog",
+    "productName": "NBlog",
     "appId": "com.lanly.nblog",
-    "copyright":"NBlog2022",
-    "directories": { 
+    "copyright": "NBlog2022",
+    "directories": {
       "output": "build"
-    }, 
+    },
     "nsis": {
-      "oneClick": false, 
-      "allowElevation": true, 
+      "oneClick": false,
+      "allowElevation": true,
       "allowToChangeInstallationDirectory": true,
       "installerIcon": "./public/48.ico",
       "uninstallerIcon": "",
@@ -27,7 +28,8 @@
       "dist/**/*",
       "./main.js",
       "./preload.js",
-      "./nblog-server"
+      "./nblog-server",
+      "./nblog-server.exe"
     ],
     "dmg": {
       "contents": [
@@ -45,29 +47,36 @@
       ]
     },
     "mac": {
-      "icon": "./public/48.icns"
+      "icon": "./public/256.icns"
     },
     "win": {
-      "icon": "./public/48.ico",
+      "icon": "./public/256.ico",
       "target": [
         {
-          "target": "nsis",
-          "arch": [
-            "ia32"
-          ]
+          "target": "nsis"
         }
       ]
     },
     "linux": {
-      "icon": "./public/48.ico"
+      "icon": "./public/256.png",
+      "target": [
+        {
+          "target": "deb"
+        }
+      ]
     }
   },
   "scripts": {
-    "ebuildm": "electron-builder --mac",
-    "ebuildw": "electron-builder --win --x64",
-    "ebuildl": "electron-builder -l",
+    "ebuildmx64": "electron-builder --mac --x64",
+    "ebuildma64": "electron-builder --mac --arm64",
+    "ebuildwx64": "electron-builder --win --x64",
+    "ebuildwi32": "electron-builder --win --ia32",
+    "ebuildwa64": "electron-builder --win --arm64",
+    "ebuildlx64": "electron-builder --linux --x64",
+    "ebuildla64": "electron-builder --linux --arm64",
+    "ebuildla32": "electron-builder --linux --armv7l",
     "ebuildp": "electron-packager . nblog --win --out=release --arch=x64 --electron-version=18.2.4 --overwrite  --ignore=node_modules",
-    "estart": "electron .",
+    "estart": "set NODE_ENV=production && electron .",
     "analyze": "cross-env ANALYZE=1 umi build",
     "build": "umi build",
     "deploy": "npm run build && npm run gh-pages",
@@ -77,14 +86,10 @@
     "postinstall": "umi g tmp",
     "lint": "umi g tmp && npm run lint:js && npm run lint:style && npm run lint:prettier && npm run tsc",
     "lint-staged": "lint-staged",
-    "lint-staged:js": "eslint --ext .js,.jsx,.ts,.tsx ",
-    "lint:fix": "eslint --fix --cache --ext .js,.jsx,.ts,.tsx --format=pretty ./src && npm run lint:style",
-    "lint:js": "eslint --cache --ext .js,.jsx,.ts,.tsx --format=pretty ./src",
     "lint:prettier": "prettier -c --write \"src/**/*\" --end-of-line auto",
     "lint:style": "stylelint --fix \"src/**/*.less\" --syntax less",
     "openapi": "umi openapi",
     "playwright": "playwright install && playwright test",
-    "prepare": "husky install",
     "prettier": "prettier -c --write \"src/**/*\"",
     "serve": "umi-serve",
     "start": "cross-env UMI_ENV=dev umi dev",
@@ -96,7 +101,8 @@
     "test": "umi test",
     "test:component": "umi test ./src/components",
     "test:e2e": "node ./tests/run-tests.js",
-    "tsc": "tsc --noEmit"
+    "tsc": "tsc --noEmit",
+    "rimraf": "./node_modules/rimraf/bin.js"
   },
   "lint-staged": {
     "**/*.less": "stylelint --syntax less",
@@ -158,15 +164,12 @@
     "detect-installer": "^1.0.0",
     "electron": "^19.0.3",
     "electron-builder": "^23.0.3",
-    "eslint": "^7.32.0",
-    "gh-pages": "^3.2.0",
-    "husky": "^7.0.4",
     "jsdom-global": "^3.0.0",
-    "junk": "^4.0.0",
     "lint-staged": "^10.0.0",
     "mockjs": "^1.1.0",
     "prettier": "^2.5.0",
     "rcedit": "^3.0.1",
+    "rimraf": "^3.0.2",
     "stylelint": "^13.0.0",
     "typescript": "^4.5.0",
     "umi-serve": "^1.9.10"
