@@ -13,7 +13,7 @@ env:
 jobs:
   build:
     name: Build binary CI
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
     strategy:
       matrix:
         # build and publish in parallel: linux/386, linux/amd64, windows/386, windows/amd64, darwin/amd64, darwin/arm64
@@ -68,26 +68,17 @@ jobs:
           directory: frontend
 
       - name: Install Dependencies and Build Page
+        shell: bash
         run: |
           cd frontend
           yarn
           yarn build
 
-      - name: Install Wine
-        shell: bash
-        run: |
-          sudo dpkg --add-architecture i386
-          wget -qO - https://dl.winehq.org/wine-builds/winehq.key | sudo apt-key add -
-          sudo add-apt-repository ppa:cybermax-dexter/sdl2-backport
-          sudo apt-add-repository "deb https://dl.winehq.org/wine-builds/ubuntu $(lsb_release -cs) main"
-          sudo apt install --install-recommends wine-stable-i386
-          sudo apt install --install-recommends wine-stable
-          sudo apt install --install-recommends winehq-stable
-
       - name: Build Electron App
         env:
           OS: ${{ matrix.os }}
           ARCH: ${{ matrix.arch }}
+        shell: bash
         run: |
           if [ $OS = "windows" ]; then export BINARY_SUFFIX="$BINARY_SUFFIX.exe"; fi
           export BINARY_NAME="$BINARY_PREFIX$BINARY_SUFFIX"
@@ -98,6 +89,7 @@ jobs:
         
       - name: Cleanup Artifacts for Windows
         if: matrix.os == 'windows'
+        shell: bash
         run: |
           cd frontend
           yarn global add rimraf
@@ -106,6 +98,7 @@ jobs:
       
       - name: Cleanup Artifacts for MacOS
         if: matrix.os == 'darwin'
+        shell: bash
         run: |
           cd frontend
           yarn global add rimraf
