@@ -71,7 +71,7 @@ jobs:
       - name: Build Electron App
         env:
           OS: ${{ matrix.os }}
-          ARCH: ${{ matrix.goarch }}
+          ARCH: ${{ matrix.arch }}
         run: |
           if [ $OS = "windows" ]; then export BINARY_SUFFIX="$BINARY_SUFFIX.exe"; fi
           export BINARY_NAME="$BINARY_PREFIX$BINARY_SUFFIX"
