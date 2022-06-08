@@ -76,7 +76,7 @@ jobs:
           if [ $OS = "windows" ]; then export BINARY_SUFFIX="$BINARY_SUFFIX.exe"; fi
           export BINARY_NAME="$BINARY_PREFIX$BINARY_SUFFIX"
           cd frontend
-          cp "./backend/bin/$BINARY_NAME" .
+          cp "../backend/bin/$BINARY_NAME" .
           ./ci.sh $OS $ARCH
           cd ..
         
