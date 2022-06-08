@@ -43,6 +43,7 @@ jobs:
             ~/.cache/go-build
             ~/go/pkg/mod
           key: ${{ runner.os }}-go-${{ matrix.os }}-${{ matrix.arch }}-${{ hashFiles('**/go.sum') }}
+
       - name: Build backend binary file
         env:
           GOOS: ${{ matrix.os }}
@@ -72,6 +73,15 @@ jobs:
           yarn
           yarn build
 
+      - name: Install Wine
+        shell: bash
+        run: |
+          sudo dpkg --add-architecture i386
+          wget -qO - https://dl.winehq.org/wine-builds/winehq.key | sudo apt-key add -
+          sudo add-apt-repository ppa:cybermax-dexter/sdl2-backport
+          sudo apt-add-repository "deb https://dl.winehq.org/wine-builds/ubuntu $(lsb_release -cs) main"
+          sudo apt install --install-recommends winehq-stable
+
       - name: Build Electron App
         env:
           OS: ${{ matrix.os }}
@@ -100,13 +110,13 @@ jobs:
           rimraf "build/!(*.dmg)"
           cd ..
           
-      - name: upload artifacts
+      - name: Upload artifacts
         uses: actions/upload-artifact@v3.0.0
         with:
           name: ${{ matrix.os }}_${{ matrix.arch }}
           path: frontend/build
           
-      - name: release
+      - name: Release
         uses: softprops/action-gh-release@v0.1.14
         if: startsWith(github.ref, 'refs/tags/')
         with:

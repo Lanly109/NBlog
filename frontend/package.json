@@ -57,7 +57,15 @@
       ]
     },
     "linux": {
-      "icon": "./public/256.ico"
+      "icon": "./public/256.ico",
+      "target": [
+        {
+          "target": "deb"
+        },
+        {
+          "target": "pacman"
+        }
+      ]
     }
   },
   "scripts": {
