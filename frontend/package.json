@@ -8,6 +8,7 @@
   "main": "main.js",
   "build": {
     "productName": "NBlog",
+    "artifactName":"${productName}_${os}_${arch}_${version}.${ext}",
     "appId": "com.lanly.nblog",
     "copyright": "NBlog2022",
     "directories": {
