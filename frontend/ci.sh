@@ -4,8 +4,6 @@ ARCH=$2
 case $OS in
     linux)
         case $ARCH in
-            386)
-                yarn ebuildli32 ;;
             amd64)
                 yarn ebuildlx64 ;;
             arm)
@@ -20,8 +18,6 @@ case $OS in
                 yarn ebuildwi32 ;;
             amd64)
                 yarn ebuildwx64 ;;
-            arm)
-                yarn ebuildwa32 ;;
             arm64)
                 yarn ebuildwa64
         esac

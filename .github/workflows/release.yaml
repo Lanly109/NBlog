@@ -24,6 +24,10 @@ jobs:
             arch: arm
           - os: darwin
             arch: "386"
+          - os: linux
+            arch: "386"
+          - os: windows
+            arch: "arm"
       fail-fast: true
     steps:
       - uses: actions/checkout@v2

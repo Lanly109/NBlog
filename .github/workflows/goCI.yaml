@@ -25,6 +25,10 @@ jobs:
             goarch: arm
           - goos: darwin
             goarch: "386"
+          - goos: linux
+            goarch: "386"
+          - goos: windows
+            goarch: "arm"
       fail-fast: true
     steps:
       - uses: actions/checkout@v2
