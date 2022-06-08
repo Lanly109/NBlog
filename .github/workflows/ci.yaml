@@ -48,7 +48,7 @@ jobs:
           export BINARY_NAME="$BINARY_PREFIX$GOOS_$GOARCH$BINARY_SUFFIX"
           export nblog_PKG="nblog-server"
           export GO_LDFLAGS="-X '$nblog_PKG/server.Version=`git describe --tags --dirty --always`' -X '$nblog_PKG/server.GitCommitHash=`git rev-parse HEAD`'"
-          export MAIN_ENTRYPOINT := backend/cmd/nblog-server/main.go
+          export MAIN_ENTRYPOINT=backend/cmd/nblog-server/main.go
           go build -o "backend/bin/$BINARY_NAME" -trimpath -ldflags "$GO_LDFLAGS" "$MAIN_ENTRYPOINT"
       - name: Upload artifact
         uses: actions/upload-artifact@v2
