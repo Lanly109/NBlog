@@ -50,6 +50,7 @@ jobs:
           export nblog_PKG="nblog-server"
           export GO_LDFLAGS="-X '$nblog_PKG/server.Version=`git describe --tags --dirty --always`' -X '$nblog_PKG/server.GitCommitHash=`git rev-parse HEAD`'"
           export MAIN_ENTRYPOINT=cmd/nblog-server/main.go
+          go mod tidy
           go build -o "bin/$BINARY_NAME" -trimpath -ldflags "$GO_LDFLAGS" "$MAIN_ENTRYPOINT"
           cd ..
       - name: Upload artifact
