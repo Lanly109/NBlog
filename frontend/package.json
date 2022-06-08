@@ -1,20 +1,20 @@
 {
   "name": "ant-design-pro",
-  "version": "5.2.0",
+  "version": "1.0.0",
   "private": true,
   "author": "lanly",
   "description": "NBlog, suitable to Newer to build their own personal blog",
   "main": "main.js",
   "build": {
-    "productName":"NBlog",
+    "productName": "NBlog",
     "appId": "com.lanly.nblog",
-    "copyright":"NBlog2022",
-    "directories": { 
+    "copyright": "NBlog2022",
+    "directories": {
       "output": "build"
-    }, 
+    },
     "nsis": {
-      "oneClick": false, 
-      "allowElevation": true, 
+      "oneClick": false,
+      "allowElevation": true,
       "allowToChangeInstallationDirectory": true,
       "installerIcon": "./public/48.ico",
       "uninstallerIcon": "",
@@ -27,7 +27,8 @@
       "dist/**/*",
       "./main.js",
       "./preload.js",
-      "./nblog-server"
+      "./nblog-server",
+      "./nblog-server.exe"
     ],
     "dmg": {
       "contents": [
@@ -45,29 +46,33 @@
       ]
     },
     "mac": {
-      "icon": "./public/48.icns"
+      "icon": "./public/256.icns"
     },
     "win": {
-      "icon": "./public/48.ico",
+      "icon": "./public/256.ico",
       "target": [
         {
-          "target": "nsis",
-          "arch": [
-            "ia32"
-          ]
+          "target": "nsis"
         }
       ]
     },
     "linux": {
-      "icon": "./public/48.ico"
+      "icon": "./public/256.ico"
     }
   },
   "scripts": {
-    "ebuildm": "electron-builder --mac",
-    "ebuildw": "electron-builder --win --x64",
-    "ebuildl": "electron-builder -l",
+    "ebuildmx64": "electron-builder --mac --x64",
+    "ebuildma64": "electron-builder --mac --arm64",
+    "ebuildwx64": "electron-builder --win --x64",
+    "ebuildwi32": "electron-builder --win --ia32",
+    "ebuildwa64": "electron-builder --win --arm64",
+    "ebuildwa32": "electron-builder --win --armv7l",
+    "ebuildlx64": "electron-builder --linux --x64",
+    "ebuildli32": "electron-builder --linux --ia32",
+    "ebuildla64": "electron-builder --linux --arm64",
+    "ebuildla32": "electron-builder --linux --armv7l",
     "ebuildp": "electron-packager . nblog --win --out=release --arch=x64 --electron-version=18.2.4 --overwrite  --ignore=node_modules",
-    "estart": "electron .",
+    "estart": "set NODE_ENV=production && electron .",
     "analyze": "cross-env ANALYZE=1 umi build",
     "build": "umi build",
     "deploy": "npm run build && npm run gh-pages",
