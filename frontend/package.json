@@ -68,6 +68,7 @@
     }
   },
   "scripts": {
+    "ebuild": "electron-builder",
     "ebuildmx64": "electron-builder --mac --x64",
     "ebuildma64": "electron-builder --mac --arm64",
     "ebuildwx64": "electron-builder --win --x64",
