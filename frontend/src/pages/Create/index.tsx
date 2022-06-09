@@ -29,7 +29,7 @@ const Create: React.FC = () => {
         path: path,
         url: remoteURL,
         username: username,
-        useremail: useremail,
+        usermail: useremail,
         persontoken: persontoken,
         framework: framework,
         server: position
