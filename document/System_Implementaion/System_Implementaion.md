@@ -1,26 +1,20 @@
-# LabWeek15 - System Implementaion
+# LabWeek16 - System Implementaion
 
-### > 实验内容：系统的模块设计与编码实现
-
-* > 系统功能结构图
-* > 关键模块说明 (流程图、时序图、接口、附注)
-* > 实现源代码及运行截图
-* > 参考资料gg
-  
-  * > Steve McConnell, Code Complete, 2nd Edition, O'Reilly 2004
-* > Robert C. Martin, Clean Code, Pearson 2008
-* > Style Guides for Google-originated Open-source Projects:
-  
-  * > [https://github.com/google/styleguide](https://github.com/google/styleguide)
-* > [https://zh-google-styleguide.readthedocs.io/en/latest/](https://zh-google-styleguide.readthedocs.io/en/latest/)
+|学号|姓名|
+|:--:|:--:|
+|19308086|梁励|
+|19308045|黄海宇|
+|18351099|张涛麟|
 
 [飞书链接](https://sysumatrix.feishu.cn/docs/doccnveKp3MOKawCfsK2WhHAMDd#)
 
 [源代码地址](https://github.com/Lanly109/NBlog)
 
+(目前`react electron`之间的绑定出现了点问题，待解决)
+
 1. ## 系统功能结构图
 
-![](pic/1.jpg)
+![](https://sysumatrix.feishu.cn/space/api/box/stream/download/asynccode/?code=ZjNkNTU0NjczN2MyNGY4MWExZjg3OWZkNjgyYzY5NDRfUWRSRER3SWdzYlpnSHJIZ3ZwT0NxTUdOTW1QbVhoa09fVG9rZW46Ym94Y25GU3JaelpKVW90TmZUUGRsZkt1YkxjXzE2NTQyNTE0OTI6MTY1NDI1NTA5Ml9WNA)
 
 2. ## 关键模块说明 (流程图、时序图、接口、附注)
 
@@ -28,83 +22,33 @@
 
 #### 2.1.1 流程图
 
-![](pic/2.jpg)
+![](https://sysumatrix.feishu.cn/space/api/box/stream/download/asynccode/?code=YzdlNzIyZDQxMmM3ZDE2ZGI2MzRmYzEzMDcwMWUxOTBfMUhsZkFNb1Q1WE5yVVBNaUowMUM4Ym5ScWRQZWNqMkhfVG9rZW46Ym94Y25saFFsZE5tdU1CYm0yTDhMTFB5TmljXzE2NTQyNTE0OTI6MTY1NDI1NTA5Ml9WNA)
 
 #### 2.1.2 时序图
 
-![](pic/3.jpg)
+![](https://sysumatrix.feishu.cn/space/api/box/stream/download/asynccode/?code=ODMyMDQxZDdiZjkyMmFhOGUwY2JlODk0NDVkYmU5ZjNfRkR5UnhLZnRNb1VETnRMSkVUZTczSERoSnl4NTc0YWNfVG9rZW46Ym94Y25MeG95eDhubk1IVzg3NVpUY3FFWEtiXzE2NTQyNTE0OTI6MTY1NDI1NTA5Ml9WNA)
 
 #### 2.1.3 接口
 
-![](pic/4.jpg)
+![](https://sysumatrix.feishu.cn/space/api/box/stream/download/asynccode/?code=MWY1ZDFjOWE3Y2Y4YmZhYzFiN2ZjYWQ2M2Y4ZTQ3OTNfMHhoOVB6QWFjNzVOZEZXY2dMU2lSMUJzMWY2NWM5OGZfVG9rZW46Ym94Y25WRzFUaDhkUUh3UW5yVzhZVzBRMGNnXzE2NTQyNTE0OTI6MTY1NDI1NTA5Ml9WNA)
 
 ### 2.2 后端
 
 #### 2.2.1 流程图
 
-![](pic/5.jpg)
+![](https://sysumatrix.feishu.cn/space/api/box/stream/download/asynccode/?code=ODYxNWQ3OWMxZGM0ZGI2MmY2ODNiYTNiNzRkNjYzYTVfcWdFaXBGYkEzOWdGYmdNVFkzSlk4bnlZNzF5dTloVlRfVG9rZW46Ym94Y25STGFMclZqVXgwY2tldk13Y2ptMmRjXzE2NTQyNTE0OTI6MTY1NDI1NTA5Ml9WNA)
 
 #### 2.2.2 时序图
 
-![](pic/6.jpg)
+![](https://sysumatrix.feishu.cn/space/api/box/stream/download/asynccode/?code=MGZmYzBlNDA5ZmI5YWZlOWIzYjgzNGFjYWNhNjBmMWVfTzF6S1RJdUMzbVFmRHpWR0FUZjROeGpZSW9qNHlBbDBfVG9rZW46Ym94Y254dHh1bzNHSzVXWFVBc1liV0RYWjhjXzE2NTQyNTE0OTI6MTY1NDI1NTA5Ml9WNA)
 
 #### 2.2.3 接口
 
-![](pic/7.jpg)
+![](https://sysumatrix.feishu.cn/space/api/box/stream/download/asynccode/?code=ZDlkNzhjMWZkZmNjMmUzOGU0Y2E3NDkwNDYwYjdkMzJfMVN5aXczVU1JYlJHSlY4YUg0NXJJQnBNR2dyZUhYc1ZfVG9rZW46Ym94Y24wTDVrZTFuVTdyMHdxRkp6eGNDMmxjXzE2NTQyNTE0OTI6MTY1NDI1NTA5Ml9WNA)
+
+
 
 3. ### 前后端交互接口约定
-
-#### POST 添加personal key
-
-POST /api/personalkeys
-
-> Body 请求参数
-
-```JSON
-{
-  "key": "Duis"
-}
-```
-
-##### 请求参数
-
-| **名称**  | **位置**  | **类型**  | **必选**  | **中文名**  | **说明**                        |
-| ------------ | ------------ | ------------ | ------------ | -------------- | ---------------------------------- |
-| body       | body       | object     | 否         |              | none                             |
-| » key     | body       | string     | 是         | 密钥         | 给后端调用github api时的身份验证 |
-
-> 返回示例
-
-> 成功
-
-```JSON
-{
-  "code": 200,
-  "msg": "ok"
-}
-```
-
-```JSON
-{
-  "code": 400,
-  "msg": "key invalid"
-}
-```
-
-##### 返回结果
-
-| **状态码**  | **状态码含义**                                       | **说明**  | **数据模型**  |
-| -------------- | ------------------------------------------------------- | ------------ | ---------------- |
-| 200          | [OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)  | 成功       | Inline         |
-
-##### 返回数据结构
-
-状态码 **200**
-
-| **名称**  | **类型**  | **必选**  | **约束**  | **说明**  |
-| ------------ | ------------ | ------------ | ------------ | ------------ |
-| » code    | integer    | true       | none       | none       |
-| » msg     | string     | true       | none       | none       |
 
 #### POST 同步仓库与云端
 
@@ -467,17 +411,15 @@ POST /api/init
 ```JSON
 {
   "path": "/xmxc/084038",
-  "create": true
 }
 ```
 
 ##### 请求参数
 
-| **名称**  | **位置**  | **类型**  | **必选**  | **中文名**    | **说明**          |
-| ------------ | ------------ | ------------ | ------------ | ---------------- | -------------------- |
-| body       | body       | object     | 否         |                | none               |
-| » path    | body       | string     | 是         | 路径           | 仓库存放的绝对路径 |
-| » create  | body       | boolean    | 是         | 是否为创建博客 | none               |
+| **名称**  | **位置**  | **类型**  | **必选**  | **中文名**  | **说明**          |
+| ------------ | ------------ | ------------ | ------------ | -------------- | -------------------- |
+| body       | body       | object     | 否         |              | none               |
+| » path    | body       | string     | 是         | 路径         | 仓库存放的绝对路径 |
 
 > 返回示例
 
@@ -494,6 +436,63 @@ POST /api/init
 {
   "code": 400,
   "msg": "permission deny"
+}
+```
+
+##### 返回结果
+
+| **状态码**  | **状态码含义**                                       | **说明**  | **数据模型**  |
+| -------------- | ------------------------------------------------------- | ------------ | ---------------- |
+| 200          | [OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)  | 成功       | Inline         |
+
+##### 返回数据结构
+
+状态码 **200**
+
+| **名称**  | **类型**  | **必选**  | **约束**  | **说明**  |
+| ------------ | ------------ | ------------ | ------------ | ------------ |
+| » code    | integer    | true       | none       | none       |
+| » msg     | string     | true       | none       | none       |
+
+#### POST 新建仓库
+
+POST /api/create
+
+> Body 请求参数
+
+```JSON
+{
+  "path": "string",
+  "url": "string",
+  "username": "string",
+  "usermail": "string",
+  "persontoken": "string",
+  "framework": "string",
+  "server": "string"
+}
+```
+
+##### 请求参数
+
+| **名称**      | **位置**  | **类型**  | **必选**  | **中文名**            | **说明**           |
+| ---------------- | ------------ | ------------ | ------------ | ------------------------ | --------------------- |
+| body           | body       | object     | 否         |                        | none                |
+| » path        | body       | string     | 是         | 本地路径               | none                |
+| » url         | body       | string     | 是         | 远程仓库               | none                |
+| » username    | body       | string     | 是         | 用户名                 | none                |
+| » usermail    | body       | string     | 是         | 用户邮箱               | none                |
+| » persontoken | body       | string     | 是         | github的personal token | none                |
+| » framework   | body       | string     | 是         | 博客框架               | 目前只有hexo        |
+| » server      | body       | string     | 是         | 服务器类型             | 目前只有github page |
+
+> 返回示例
+
+> 成功
+
+```JSON
+{
+  "code": 200,
+  "msg": "ok"
 }
 ```
 
@@ -561,3 +560,19 @@ POST /api/init
 | data       | string     | true       | none       | none       |
 
 ## 实现源代码及运行截图
+
+### 初始界面
+
+![](https://sysumatrix.feishu.cn/space/api/box/stream/download/asynccode/?code=OTQzMTRiN2NlNWEzOWQ2MGMyNjFlZjJkYzMwMTcyNzNfTVJONFp4S3Y5cW5KcUJTUmNTNUJqTXEyTjFwY2ZQbE1fVG9rZW46Ym94Y25La1dqcGhqS3Bnb3k5QTZtN0VhUXNkXzE2NTQyNTE0MDI6MTY1NDI1NTAwMl9WNA)
+
+### 新建仓库界面
+
+![](https://sysumatrix.feishu.cn/space/api/box/stream/download/asynccode/?code=MmJlOGJiYTk3NzIxYzNlMWJlNWE2Njg5N2QzZWIzNjFfb3N6ZEoxenlhRjdsTWpLdmJmWEVLYU03TnhrQnZseWZfVG9rZW46Ym94Y25PZ0RlSEd6UTh0QnhPdFprQ3ZUbkNnXzE2NTQyNTE0MDI6MTY1NDI1NTAwMl9WNA)
+
+### 已编写文章界面
+
+![](https://sysumatrix.feishu.cn/space/api/box/stream/download/asynccode/?code=OTZhNTdlZTQzMjI4ODMzOTllOTNiYWRiYThhM2VkZWNfc1U1MnR4VmZGbzlvOVR2R29ZTmZ5QVQ4VXd1b3F0b3NfVG9rZW46Ym94Y25pUk14SzVVZ0h1OElCVlIydTlCMmZmXzE2NTQyNTE0MDI6MTY1NDI1NTAwMl9WNA)
+
+### 新建博文
+
+![](https://sysumatrix.feishu.cn/space/api/box/stream/download/asynccode/?code=OTRmZmM3MzNmOGQ5NTI0MjBkMmRjNjFkYzJkNjkwNTJfdVJFSmVUdXNSY2tYNjM4TkJYSjNoVzMxVmFJSWVsMjRfVG9rZW46Ym94Y25aVzVkTDNJZ2xqekM2N0hMTFc1YWRjXzE2NTQyNTE0MDI6MTY1NDI1NTAwMl9WNA)
