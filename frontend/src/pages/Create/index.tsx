@@ -14,7 +14,7 @@ const Create: React.FC = () => {
   const [persontoken, setPersontoken] = React.useState<string>();
   const [username, setUsername] = React.useState<string>();
   const [useremail, setUseremail] = React.useState<string>();
-  const [remoteURL, setRemoteURL] = React.useState<string>();
+  const [remoteName, setRemoteName] = React.useState<string>();
   const [framework, setFramework] = React.useState<string>("hexo");
   const [position, setPosition] = React.useState<string>("gp");
   const [loading, setLoading] = React.useState<boolean>(false);
@@ -27,7 +27,7 @@ const Create: React.FC = () => {
     axios
       .post('create', {
         path: path,
-        url: remoteURL,
+        reponame: remoteName,
         username: username,
         usermail: useremail,
         persontoken: persontoken,
@@ -141,11 +141,11 @@ const Create: React.FC = () => {
 
               <Row gutter={[16, 32]}>
                 <Col>
-                    Github远程仓库网址
+                    Github仓库名
                 </Col>
 
                 <Col>
-                  <Input placeholder="https://.." onChange={e => setRemoteURL(e.target.value)} value={remoteURL}/> 
+                  <Input placeholder="Your Reposity Name" onChange={e => setRemoteName(e.target.value)} value={remoteName}/> 
                 </Col>
               </Row>
               <br/>
