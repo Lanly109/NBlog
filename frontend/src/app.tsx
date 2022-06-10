@@ -6,11 +6,7 @@ import axios from 'axios'
 
 const isDev = process.env.NODE_ENV === 'development';
 
-if (isDev){
-    axios.defaults.baseURL = "/api/"
-}else{
-    axios.defaults.baseURL = "http://127.0.0.1:13145/api/"
-}
+axios.defaults.baseURL = "http://127.0.0.1:13145/api/"
 
 axios.defaults.withCredentials = true
 

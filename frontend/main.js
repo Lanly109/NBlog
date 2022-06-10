@@ -1,7 +1,7 @@
 const {app, ipcMain, BrowserWindow, globalShortcut, dialog} = require('electron')
 const path = require('path')
 
-const isDevelopment = process.env.NODE_ENV !== 'production'
+const isDevelopment = process.env.NODE_ENV === 'development'
 
 function createWindow () {
   // Create the browser window.
@@ -19,15 +19,18 @@ function createWindow () {
     allowRunningInsecureContent: true
   })
 
+    console.log(isDevelopment)
+    console.log(process.env.NODE_ENV)
 
-  // 加载应用----react 打包
+
   if (isDevelopment){
-      mainWindow.loadURL(path.join('file://', __dirname, 'dist/index.html'))
-  }else{
   // 打开调试.
   // 加载应用----适用于 react 开发时项目
       mainWindow.webContents.openDevTools()
       mainWindow.loadURL('http://localhost:8000/');
+  }else{
+  // 加载应用----react 打包
+      mainWindow.loadURL(path.join('file://', __dirname, 'dist/index.html'))
   }
 
 
@@ -46,10 +49,12 @@ function createWindow () {
 app.whenReady().then(() => {
 
   const { execFile } = require('child_process')
-  if (process.platform === 'win32'){
-      execFile(path.join(__dirname, 'nblog-server.exe'))
-  } else{
-      execFile(path.join(__dirname, 'nblog-server'))
+  if (!isDevelopment){
+      if (process.platform === 'win32'){
+          execFile(path.join(__dirname, 'nblog-server.exe'))
+      } else{
+          execFile(path.join(__dirname, 'nblog-server'))
+      }
   }
 
   createWindow()

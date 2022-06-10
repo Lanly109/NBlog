@@ -78,7 +78,7 @@
     "ebuildla64": "electron-builder --linux --arm64",
     "ebuildla32": "electron-builder --linux --armv7l",
     "ebuildp": "electron-packager . nblog --win --out=release --arch=x64 --electron-version=18.2.4 --overwrite  --ignore=node_modules",
-    "estart": "set NODE_ENV=production && electron .",
+    "estart": "cross-env NODE_ENV=development electron .",
     "analyze": "cross-env ANALYZE=1 umi build",
     "build": "umi build",
     "deploy": "npm run build && npm run gh-pages",
