@@ -5,6 +5,7 @@ import (
 	"nblog-server/server/util/git"
 	"nblog-server/server/util/githubAPI"
 	"nblog-server/server/util/serializer"
+	"path"
 	"path/filepath"
 
 	"github.com/gin-gonic/gin"
@@ -45,7 +46,7 @@ type createObj struct {
 
 func createRepo(c *gin.Context) {
 
-    githubClient := githubAPI.GetNewGithubClient()
+	githubClient := githubAPI.GetNewGithubClient()
 
 	obj := createObj{}
 	c.BindJSON(&obj)
@@ -57,53 +58,53 @@ func createRepo(c *gin.Context) {
 	repopath := filepath.Join(obj.REPOPATH, "src")
 	envpath := filepath.Join(obj.REPOPATH, ".env")
 
-    obj.REMOTEURL = "github.com/" + obj.USERNAME + "/" + obj.REPONAME + ".git";
+	obj.REMOTEURL = "github.com/" + obj.USERNAME + "/" + obj.REPONAME + ".git"
 
-    githubClient.Init(obj.USERNAME, obj.REPONAME, obj.TOKEN)
-    if err := githubClient.CreateRepo(); err != nil{
+	githubClient.Init(obj.USERNAME, obj.REPONAME, obj.TOKEN)
+	if err := githubClient.CreateRepo(); err != nil {
 		c.JSON(400, serializer.Response{
 			Code: 0,
 			Msg:  err.Error(),
 		})
 		return
-    }
+	}
 
-    if err := githubClient.AddSecret("GIT_NAME", obj.USERNAME); err != nil{
+	if err := githubClient.AddSecret("GIT_NAME", obj.USERNAME); err != nil {
 		c.JSON(400, serializer.Response{
 			Code: 0,
 			Msg:  err.Error(),
 		})
 		return
-    }
+	}
 
-    if err := githubClient.AddSecret("GIT_EMAIL", obj.MAIL); err != nil{
+	if err := githubClient.AddSecret("GIT_EMAIL", obj.MAIL); err != nil {
 		c.JSON(400, serializer.Response{
 			Code: 0,
 			Msg:  err.Error(),
 		})
 		return
-    }
+	}
 
-    if err := githubClient.AddSecret("GIT_URL", obj.REMOTEURL); err != nil{
+	if err := githubClient.AddSecret("GIT_URL", obj.REMOTEURL); err != nil {
 		c.JSON(400, serializer.Response{
 			Code: 0,
 			Msg:  err.Error(),
 		})
 		return
-    }
+	}
 
-    if err := githubClient.AddSecret("GH_TOKEN", obj.TOKEN); err != nil{
+	if err := githubClient.AddSecret("GH_TOKEN", obj.TOKEN); err != nil {
 		c.JSON(400, serializer.Response{
 			Code: 0,
 			Msg:  err.Error(),
 		})
 		return
-    }
+	}
 
-    obj.REMOTEURL = "https://" + obj.REMOTEURL
+	obj.REMOTEURL = "https://" + obj.REMOTEURL
 
 	ma["REPOPATH"] = repopath
-    ma["REMOTEURL"] = obj.REMOTEURL
+	ma["REMOTEURL"] = obj.REMOTEURL
 	ma["REPONAME"] = obj.REPONAME
 	ma["USERNAME"] = obj.USERNAME
 	ma["MAIL"] = obj.MAIL
@@ -111,7 +112,6 @@ func createRepo(c *gin.Context) {
 	ma["FRAMEWORK"] = obj.FRAMEWORK
 	ma["SERVER"] = obj.SERVER
 	ma["ENVPATH"] = envpath
-
 
 	os.Setenv("REPOPATH", repopath)
 	os.Setenv("REMOTEURL", obj.REMOTEURL)
@@ -144,6 +144,32 @@ func createRepo(c *gin.Context) {
 		return
 	}
 
+	confPath := path.Join(repopath, "_config.yml")
+
+	confYaml, err := util.LoadConf(confPath)
+	if err != nil {
+		c.JSON(400, serializer.Response{
+			Code: 0,
+			Msg:  err.Error(),
+		})
+		return
+	}
+
+	defaultPageName := obj.USERNAME + ".github.io"
+	if defaultPageName != obj.REPONAME {
+		defaultPageName += "/" + obj.REPONAME
+	}
+	confYaml["url"] = "https://" + defaultPageName
+	confYaml["author"] = obj.USERNAME
+	confYaml["description"] = "Power By NBlog"
+	if err := util.SaveConf(confPath, confYaml); err != nil {
+		c.JSON(400, serializer.Response{
+			Code: 0,
+			Msg:  err.Error(),
+		})
+		return
+	}
+
 	directory := os.Getenv("REPOPATH")
 	token := os.Getenv("TOKEN")
 	username := os.Getenv("USERNAME")
@@ -159,13 +185,13 @@ func createRepo(c *gin.Context) {
 
 	err = git.GitPush(directory, username, token)
 
-    // if err := githubClient.CreatePage("main", "/"); err != nil{
+	// if err := githubClient.CreatePage("main", "/"); err != nil{
 	//     c.JSON(400, serializer.Response{
 	//         Code: 0,
 	//         Msg:  err.Error(),
 	//     })
 	//     return
-    // }
+	// }
 
 	if err == nil {
 		c.JSON(200, serializer.Response{
