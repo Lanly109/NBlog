@@ -28,7 +28,7 @@ func GitAddCommit(directory string) (err error) {
 
 	Info("git add all")
 	err = w.AddWithOptions(&git.AddOptions{
-		// All: true,
+        All: true,
 		Path: ".",
 	})
 
@@ -48,7 +48,7 @@ func GitAddCommit(directory string) (err error) {
 
 	Info("git commit -m \"all commit\"")
 	commit, err := w.Commit("all commit", &git.CommitOptions{
-		// All: true,
+        All: true,
 		Author: &object.Signature{
 			Name:  os.Getenv("USERNAME"),
 			Email: os.Getenv("MAIL"),
