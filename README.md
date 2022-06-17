@@ -51,8 +51,8 @@ cd bin
 
 ## TODO List
 
-- [ ] update tag UI
-- [ ] update abstract part(remove garbled codes)
-- [ ] support add `secret` in backend
+- [x] update tag UI
+- [x] update abstract part(remove garbled codes)
+- [x] support add `secret` in backend
 - [ ] support about me modify
-- [ ] fix delete commit
+- [x] fix delete commit
