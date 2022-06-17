@@ -85,7 +85,7 @@ func getList(c *gin.Context) {
 			return err
 		}
 
-        defer fp.Close()
+		defer fp.Close()
 
 		obj := dataObj{}
 
@@ -102,9 +102,9 @@ func getList(c *gin.Context) {
 				for {
 					lineBytes, err := r.ReadByte()
 					cnt += 1
-					if cnt == 20 {
-						obj.Abstract = string(content)
-					}
+					// if cnt == 20 {
+					// 	obj.Abstract = string(content)
+					// }
 					if err != nil && err != io.EOF {
 						panic(err)
 					}
@@ -114,9 +114,15 @@ func getList(c *gin.Context) {
 					content = append(content, lineBytes)
 				}
 				fmt.Print(string(content))
-				if cnt < 20 {
-					obj.Abstract = string(content)
+				// if cnt < 20 {
+				// 	obj.Abstract = string(content)
+				// }
+				nameRune := []rune(string(content))
+				runeLen := len(nameRune)
+				if runeLen > 20 {
+					runeLen = 20
 				}
+				obj.Abstract = string(nameRune[0:runeLen])
 				break
 			}
 			lineBytes, err := r.ReadBytes('\n')
@@ -132,20 +138,20 @@ func getList(c *gin.Context) {
 				matchArr := compileRegex.FindStringSubmatch(line)
 				fmt.Println("提取字符串: ", matchArr[len(matchArr)-1])
 				obj.Title = matchArr[len(matchArr)-1]
-            } else if lnum == 3 {
-                compileRegex := regexp.MustCompile("date: (.*?)$")
-                matchArr := compileRegex.FindStringSubmatch(line)
-                fmt.Println("提取字符串: ", matchArr[len(matchArr)-1])
-                obj.Date = matchArr[len(matchArr)-1]
-            } else if lnum == 4 {
-                compileRegex := regexp.MustCompile("tags: (.*?)$")
-                matchArr := compileRegex.FindStringSubmatch(line)
-                fmt.Println("提取字符串: ", matchArr[len(matchArr)-1])
+			} else if lnum == 3 {
+				compileRegex := regexp.MustCompile("date: (.*?)$")
+				matchArr := compileRegex.FindStringSubmatch(line)
+				fmt.Println("提取字符串: ", matchArr[len(matchArr)-1])
+				obj.Date = matchArr[len(matchArr)-1]
+			} else if lnum == 4 {
+				compileRegex := regexp.MustCompile("tags: (.*?)$")
+				matchArr := compileRegex.FindStringSubmatch(line)
+				fmt.Println("提取字符串: ", matchArr[len(matchArr)-1])
 
-                subs := matchArr[len(matchArr)-1]
+				subs := matchArr[len(matchArr)-1]
 
-                obj.Tag = strings.Split(subs, ", ")
-                obj.Category = obj.Tag[0]
+				obj.Tag = strings.Split(subs, ", ")
+				obj.Category = obj.Tag[0]
 			}
 
 			lnum += 1
