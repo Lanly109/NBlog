@@ -50,6 +50,10 @@ jobs:
           IS_PR: ${{ !!github.head_ref }}
         shell: bash
         run: |
+          wget https://github.com/jedisct1/libsodium/releases/download/1.0.18-RELEASE/libsodium-1.0.18.tar.gz
+          tar xf libsodium-1.0.18.tar.gz && cd libsodium-1.0.18
+          ./configure && make -j2 && make install
+          ldconfig
           cd backend
           if [ $GOOS = "windows" ]; then export BINARY_SUFFIX="$BINARY_SUFFIX.exe"; fi
           if $IS_PR ; then echo $PR_PROMPT; fi
