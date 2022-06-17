@@ -3,7 +3,7 @@ name: GO_CI
 on: 
   push:
     paths:
-      - 'backend/'
+      - 'backend/**'
 
 env:
   BINARY_PREFIX: "nblog_"
