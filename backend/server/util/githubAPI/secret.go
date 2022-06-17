@@ -4,9 +4,10 @@ import (
 	"context"
 	"encoding/base64"
 	"fmt"
+    "golang.org/x/crypto/nacl/box"
 
 	"github.com/google/go-github/v45/github"
-	"github.com/jamesruan/sodium"
+	// "github.com/jamesruan/sodium"
 )
 
 func (c *githubClient) AddSecret(name string, value string) error {
@@ -30,14 +31,14 @@ func (c *githubClient) AddSecret(name string, value string) error {
 }
 
 func (c *githubClient) encrypt(value string) string {
-	var byteData sodium.Bytes = []byte(value)
-	var pk sodium.BoxPublicKey
-	key, err := base64.StdEncoding.DecodeString(*c.publicKey.Key)
+	var byteData []byte = []byte(value)
+	encKey, err := base64.StdEncoding.DecodeString(*c.publicKey.Key)
 	if err != nil {
 		fmt.Println(err.Error())
 	}
-	pk.Bytes = sodium.Bytes(key)
-	cm := byteData.SealedBox(pk)
-	encodeString := base64.StdEncoding.EncodeToString(cm)
+    var tmp []byte
+    var key *[32]byte = (*[32]byte)(encKey)
+    encrypted, err := box.SealAnonymous(tmp, byteData, key, nil)
+	encodeString := base64.StdEncoding.EncodeToString(encrypted)
 	return string(encodeString)
 }

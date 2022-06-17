@@ -52,7 +52,6 @@ jobs:
           PKG_CONFIG_PATH: /usr/local/lib/pkgconfig/
         shell: bash
         run: |
-          sudo apt install libsodium-dev pkg-config
           cd backend
           if [ $GOOS = "windows" ]; then export BINARY_SUFFIX="$BINARY_SUFFIX.exe"; fi
           if $IS_PR ; then echo $PR_PROMPT; fi
