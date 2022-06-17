@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Form, Input, Button } from 'antd';
 import styles from './PublishForm.less';
 import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
+import MyTag from './MyTag'
 
 type LayoutType = Parameters<typeof Form>[0]['layout'];
 type selfProps = {
@@ -38,16 +39,9 @@ const App: React.FC<selfProps> = (props) => {
           wrapperCol: { span: 5 },
         }
       : null;
-
-  const onValuesChange = (_: any, allValues: any) => {
-    const parseValues = allValues['names'];
-    parseValues.forEach((val: string | undefined, key:number) => {
-        if (typeof parseValues[key] === 'undefined') {
-            parseValues[key]=''
-        }
-    });
-    setTag(parseValues);
-  };
+    const getChildTag = (tag: string[]) => {
+        setTag(tag);
+      };
 
   return (
     <div>
@@ -84,53 +78,7 @@ const App: React.FC<selfProps> = (props) => {
           />
         </Form.Item>
       </Form>
-      <Form
-        layout={'inline'}
-        initialValues={{ layout: 'inline' }}
-        name="dynamic_form_item"
-        onValuesChange={onValuesChange}
-      >
-        <Form.List name="names" initialValue={['']}>
-          {(fields, { add, remove }, { errors }) => (
-            <>
-              {fields.map((field, index) => (
-                <Form.Item
-                  required={false}
-                  key={index}
-                  label={index === 0 ? '标签' : ''}
-                  wrapperCol={{ span: 19 }}
-                  //   style={{wrap:{false}}}
-                >
-                  <Form.Item
-                    {...field}
-                    validateTrigger={['onChange', 'onBlur']}
-                    rules={[
-                      {
-                        required: true,
-                        whitespace: true,
-                        message: '请输入标签',
-                      },
-                    ]}
-                    noStyle
-                  >
-                    <Input placeholder="Tag" style={{ width: '60%', borderRadius: 10 }} />
-                  </Form.Item>
-                  {fields.length > 1 ? (
-                    <MinusCircleOutlined
-                      className={styles.dynamic_delete_button}
-                      onClick={() => remove(field.name)}
-                    />
-                  ) : null}
-                </Form.Item>
-              ))}
-              <Form.Item>
-                <Button type="dashed" onClick={() => add()} icon={<PlusOutlined />}></Button>
-                <Form.ErrorList errors={errors} />
-              </Form.Item>
-            </>
-          )}
-        </Form.List>
-      </Form>
+      标签: &ensp;<MyTag getTag={getChildTag} initTag={['']}></MyTag>
     </div>
   );
 };
