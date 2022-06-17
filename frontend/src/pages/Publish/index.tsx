@@ -51,7 +51,7 @@ const Publish: React.FC = () => {
         e.preventDefault();
         setLoading(true);
         // console.log(vd?.getValue());
-        // console.log(header);
+        console.log(header);
         axios
             .post('articles', {
                 title: header?.title,

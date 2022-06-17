@@ -28,7 +28,7 @@ const App: React.FC<TagProps> = (tagProps) => {
 
     React.useEffect(() => {
         if (!loading) {
-            getTag({ tag: tag });
+            getTag(tag);
         }
     }, [tag]);
 

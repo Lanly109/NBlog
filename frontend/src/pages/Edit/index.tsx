@@ -55,6 +55,7 @@ const Edit: React.FC = () => {
         }
         e.preventDefault();
         setLoading(true);
+        console.log(header?.tag)
         const hide = message.loading('更新中', 0);
         axios
             .put('articles/' + params.id, {
