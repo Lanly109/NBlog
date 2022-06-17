@@ -185,13 +185,13 @@ func createRepo(c *gin.Context) {
 
 	err = git.GitPush(directory, username, token)
 
-	// if err := githubClient.CreatePage("main", "/"); err != nil{
-	//     c.JSON(400, serializer.Response{
-	//         Code: 0,
-	//         Msg:  err.Error(),
-	//     })
-	//     return
-	// }
+    if err := githubClient.CreatePage("main", "/"); err != nil{
+        c.JSON(400, serializer.Response{
+            Code: 0,
+            Msg:  err.Error(),
+        })
+        return
+    }
 
 	if err == nil {
 		c.JSON(200, serializer.Response{
