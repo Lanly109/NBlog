@@ -14,22 +14,11 @@ const App: React.FC<TagProps> = (tagProps) => {
     const [editInputValue, setEditInputValue] = useState('');
     const inputRef = useRef<InputRef>(null);
     const editInputRef = useRef<InputRef>(null);
-    const [loading, setLoading] = React.useState(true);
     const colorArr = ["magenta", "green", "cyan", "red", "blue", "orange", "geekblue", "volcano", "gold", "lime",];
 
     React.useEffect(() => {
-        if (loading && initTag[0]!== '') {
-            console.log("init tag")
-            console.log(initTag)
-            setTag(tag? initTag : ['默认标签']);
-            setLoading(false);
-        }
-    }, [initTag]);
-
-    React.useEffect(() => {
-        if (!loading) {
-            getTag({ tag: tag });
-        }
+        setTag(tag);
+        getTag(tag);
     }, [tag]);
 
     useEffect(() => {

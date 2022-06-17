@@ -40,9 +40,10 @@ const Publish: React.FC = () => {
             vd.setValue('# 开始撰写你的文章吧!');
         }
     }, [vd]);
-
+    
     const submit = (e: SyntheticEvent<HTMLElement>) => {
-        if (header === undefined || header.title === undefined || header.title === '' || header.category === undefined || header.category === '' || header.tag === undefined || header.tag.length === 0) {
+        console.log(header.tag)
+        if (header === undefined || header.title === undefined || header.title === '' || header.category === undefined || header.category === '' || header.tag === undefined || header.tag.length === 0 || (header.tag.length == 1 && header.tag[0] === '')) {
             // console.log(header)
             message.error('请填写题目,类别和标签');
             return;
