@@ -6,7 +6,7 @@ NBlog Server, 处理HTTP API请求
 ## Build & Run
 
 ### Prerequisites
-Linux环境，安装 Go 1.16 (建议安装`gvm`(https://github.com/moovweb/gvm))
+Linux环境，安装 Go 1.18.3 (建议安装`gvm`(https://github.com/moovweb/gvm))
 
 在`.env`修改环境变量
 
