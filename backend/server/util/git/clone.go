@@ -7,6 +7,7 @@ import (
 	git "github.com/go-git/go-git/v5"
 	. "github.com/go-git/go-git/v5/_examples"
 	"github.com/go-git/go-git/v5/config"
+	"github.com/go-git/go-git/v5/plumbing"
 	"github.com/go-git/go-git/v5/plumbing/transport/http"
 )
 
@@ -61,6 +62,21 @@ func GitClone(url string, directory string, username string, token string) (err 
 		Name: "origin",
 		URLs: []string{url},
 	})
+	if err != nil {
+		return err
+	}
+
+	// 创建main分支
+	Info("git branch main")
+
+	headRef, err := r.Head()
+	if err != nil {
+		return err
+	}
+
+	ref = plumbing.NewHashReference("refs/heads/main", headRef.Hash())
+
+	err = r.Storer.SetReference(ref)
 
 	return err
 }
