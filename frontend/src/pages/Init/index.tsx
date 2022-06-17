@@ -33,13 +33,13 @@ const Init: React.FC = () => {
             })
     };
 
-    // const ipc = window.require('electron').ipcRenderer;
-    // const handleClick = (e) => {
-    //     ipc.send('open-file-dialog-for-file')
-    //     ipc.on('selected-file', function (event, path) {
-    //         setPath(path);
-    //     });
-    // }
+    const ipc = window.require('electron').ipcRenderer;
+    const handleClick = (e) => {
+        ipc.send('open-file-dialog-for-file')
+        ipc.on('selected-file', function (event, path) {
+            setPath(path);
+        });
+    }
 
     return (
         <div className="init">
@@ -49,9 +49,9 @@ const Init: React.FC = () => {
                         <Input placeholder="选择你的博客路径" onChange={e => setPath(e.target.value)} value={path} />
                     </Col>
 
-                    {/* <Col>
+                    <Col>
                         <Button onClick={handleClick}>选择路径</Button>
-                    </Col> */}
+                    </Col>
                 </Row>
                 <br />
 
