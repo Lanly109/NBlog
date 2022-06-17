@@ -18,9 +18,9 @@
       "oneClick": false,
       "allowElevation": true,
       "allowToChangeInstallationDirectory": true,
-      "installerIcon": "./public/48.ico",
+      "installerIcon": "./public/256.ico",
       "uninstallerIcon": "",
-      "installerHeaderIcon": "./public/48.ico",
+      "installerHeaderIcon": "./public/256.ico",
       "createDesktopShortcut": true,
       "createStartMenuShortcut": true,
       "shortcutName": "NBlog"
