@@ -87,10 +87,11 @@ func newArti(c *gin.Context) {
 	w.WriteByte('\n')
 	w.WriteString("date: " + iobj.Date)
 	w.WriteByte('\n')
-	w.WriteString("tags: " + iobj.Category)
+	w.WriteString("tags: [" + iobj.Category)
 	for _, tag := range iobj.Tag {
 		w.WriteString(", " + tag)
 	}
+	w.WriteString("]")
 	w.WriteByte('\n')
 	w.WriteString("---")
 	w.WriteByte('\n')
