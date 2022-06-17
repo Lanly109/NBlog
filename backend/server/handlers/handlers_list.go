@@ -149,6 +149,7 @@ func getList(c *gin.Context) {
 				fmt.Println("提取字符串: ", matchArr[len(matchArr)-1])
 
 				subs := matchArr[len(matchArr)-1]
+				subs = subs[1 : len(subs)-1]
 
 				obj.Tag = strings.Split(subs, ", ")
 				obj.Category = obj.Tag[0]
