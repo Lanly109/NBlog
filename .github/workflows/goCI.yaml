@@ -4,6 +4,7 @@ on:
   push:
     paths:
       - 'backend/**'
+      - '.github/workflows/goCI.yaml'
 
 env:
   BINARY_PREFIX: "nblog_"
@@ -48,12 +49,10 @@ jobs:
           GOOS: ${{ matrix.goos }}
           GOARCH: ${{ matrix.goarch }}
           IS_PR: ${{ !!github.head_ref }}
+          PKG_CONFIG_PATH: /usr/local/lib/pkgconfig/
         shell: bash
         run: |
-          wget https://github.com/jedisct1/libsodium/releases/download/1.0.18-RELEASE/libsodium-1.0.18.tar.gz
-          tar xf libsodium-1.0.18.tar.gz && cd libsodium-1.0.18
-          ./configure && make -j2 && make install
-          ldconfig
+          sudo apt install libsodium-dev pkg-config
           cd backend
           if [ $GOOS = "windows" ]; then export BINARY_SUFFIX="$BINARY_SUFFIX.exe"; fi
           if $IS_PR ; then echo $PR_PROMPT; fi
