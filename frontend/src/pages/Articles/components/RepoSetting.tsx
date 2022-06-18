@@ -12,6 +12,7 @@ const App = () => {
   const [formLayout, setFormLayout] = useState<LayoutType>('horizontal');
   const [local, setLocal] = React.useState<string>('');
   const [remote, setRemote] = React.useState<string>('');
+  const [homeURL, setHomeURL] = React.useState<string>('');
   const [loading, setLoading] = React.useState<boolean>(false);
   const [init, setInit] = React.useState<boolean>(false);
   let isMounted = true;
@@ -23,6 +24,7 @@ const App = () => {
         console.log(res.data.data);
         setLocal(res.data.data.path);
         setRemote(res.data.data.url);
+        setHomeURL(res.data.data.home_url);
       });
       setLoading(false);
       setInit(true);
@@ -81,6 +83,15 @@ const App = () => {
               <Form.Item label="远程仓库">
                   <Descriptions>
                       <Descriptions.Item>{remote}</Descriptions.Item>
+                  </Descriptions>
+              </Form.Item>
+            </Col>
+          </Row>
+          <Row>
+            <Col span={20}>
+              <Form.Item label="博客主页">
+                  <Descriptions>
+                      <Descriptions.Item>{homeURL}</Descriptions.Item>
                   </Descriptions>
               </Form.Item>
             </Col>

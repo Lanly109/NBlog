@@ -103,6 +103,13 @@ func createRepo(c *gin.Context) {
 
 	obj.REMOTEURL = "https://" + obj.REMOTEURL
 
+	defaultPageName := obj.USERNAME + ".github.io"
+	if defaultPageName != obj.REPONAME {
+		defaultPageName += "/" + obj.REPONAME
+	}
+    var url string = "https://" + defaultPageName
+
+
 	ma["REPOPATH"] = repopath
 	ma["REMOTEURL"] = obj.REMOTEURL
 	ma["REPONAME"] = obj.REPONAME
@@ -112,6 +119,7 @@ func createRepo(c *gin.Context) {
 	ma["FRAMEWORK"] = obj.FRAMEWORK
 	ma["SERVER"] = obj.SERVER
 	ma["ENVPATH"] = envpath
+    ma["HOMEURL"] = url
 
 	os.Setenv("REPOPATH", repopath)
 	os.Setenv("REMOTEURL", obj.REMOTEURL)
@@ -122,9 +130,10 @@ func createRepo(c *gin.Context) {
 	os.Setenv("FRAMEWORK", obj.FRAMEWORK)
 	os.Setenv("SERVER", obj.SERVER)
 	os.Setenv("ENVPATH", envpath)
+	os.Setenv("HOMEURL", url)
 
 	fmt.Printf("username %s token %s\n", obj.USERNAME, obj.TOKEN)
-	err := git.GitClone(os.Getenv("REMOTEURL"), os.Getenv("REPOPATH"), os.Getenv("USERNAME"), os.Getenv("TOKEN"))
+    err := git.GitClone(os.Getenv("REMOTEURL"), os.Getenv("REPOPATH"), os.Getenv("USERNAME"), os.Getenv("TOKEN"))
 	if err != nil {
 		c.JSON(400, serializer.Response{
 			Code: 0,
@@ -133,16 +142,6 @@ func createRepo(c *gin.Context) {
 		return
 	}
 
-	fmt.Println(os.Getenv("TOKEN"))
-
-	err = godotenv.Write(ma, envpath)
-	if err != nil {
-		c.JSON(400, serializer.Response{
-			Code: 0,
-			Msg:  err.Error(),
-		})
-		return
-	}
 
 	confPath := path.Join(repopath, "_config.yml")
 
@@ -155,14 +154,21 @@ func createRepo(c *gin.Context) {
 		return
 	}
 
-	defaultPageName := obj.USERNAME + ".github.io"
-	if defaultPageName != obj.REPONAME {
-		defaultPageName += "/" + obj.REPONAME
-	}
-	confYaml["url"] = "https://" + defaultPageName
+	confYaml["url"] = url
 	confYaml["author"] = obj.USERNAME
 	confYaml["description"] = "Power By NBlog"
 	if err := util.SaveConf(confPath, confYaml); err != nil {
+		c.JSON(400, serializer.Response{
+			Code: 0,
+			Msg:  err.Error(),
+		})
+		return
+	}
+
+	fmt.Println(os.Getenv("TOKEN"))
+
+	err = godotenv.Write(ma, envpath)
+	if err != nil {
 		c.JSON(400, serializer.Response{
 			Code: 0,
 			Msg:  err.Error(),

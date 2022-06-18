@@ -13,6 +13,9 @@ type pathObj struct {
 
 	// 远程地址
 	REMOTEURL string `json:"url"`
+
+	// 博客地址
+	HOMEURL string `json:"home_url"`
 }
 
 type retObj struct {
@@ -43,6 +46,7 @@ func getPATH(c *gin.Context) {
 
 	obj.REMOTEURL = os.Getenv("REMOTEURL")
 	obj.REPOPATH = os.Getenv("REPOPATH")
+	obj.HOMEURL = os.Getenv("HOMEURL")
 
 	c.JSON(200, retObj{
 		Code: 0,
