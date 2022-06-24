@@ -1,54 +1,46 @@
 # LabWeek16 - System Implementaion
 
-|学号|姓名|
-|:--:|:--:|
-|19308086|梁励|
-|19308045|黄海宇|
-|18351099|张涛麟|
-
-[飞书链接](https://sysumatrix.feishu.cn/docs/doccnveKp3MOKawCfsK2WhHAMDd#)
-
 [源代码地址](https://github.com/Lanly109/NBlog)
 
 (目前`react electron`之间的绑定出现了点问题，待解决)
 
-1. ## 系统功能结构图
+## 1. 系统功能结构图
 
-![](https://sysumatrix.feishu.cn/space/api/box/stream/download/asynccode/?code=ZjNkNTU0NjczN2MyNGY4MWExZjg3OWZkNjgyYzY5NDRfUWRSRER3SWdzYlpnSHJIZ3ZwT0NxTUdOTW1QbVhoa09fVG9rZW46Ym94Y25GU3JaelpKVW90TmZUUGRsZkt1YkxjXzE2NTQyNTE0OTI6MTY1NDI1NTA5Ml9WNA)
+![1](./System_Implementaion-img/1.jpg)
 
-2. ## 关键模块说明 (流程图、时序图、接口、附注)
+## 2. 关键模块说明 (流程图、时序图、接口、附注)
 
 ### 2.1 前端模块
 
 #### 2.1.1 流程图
 
-![](https://sysumatrix.feishu.cn/space/api/box/stream/download/asynccode/?code=YzdlNzIyZDQxMmM3ZDE2ZGI2MzRmYzEzMDcwMWUxOTBfMUhsZkFNb1Q1WE5yVVBNaUowMUM4Ym5ScWRQZWNqMkhfVG9rZW46Ym94Y25saFFsZE5tdU1CYm0yTDhMTFB5TmljXzE2NTQyNTE0OTI6MTY1NDI1NTA5Ml9WNA)
+![2](./System_Implementaion-img/2.jpg)
 
 #### 2.1.2 时序图
 
-![](https://sysumatrix.feishu.cn/space/api/box/stream/download/asynccode/?code=ODMyMDQxZDdiZjkyMmFhOGUwY2JlODk0NDVkYmU5ZjNfRkR5UnhLZnRNb1VETnRMSkVUZTczSERoSnl4NTc0YWNfVG9rZW46Ym94Y25MeG95eDhubk1IVzg3NVpUY3FFWEtiXzE2NTQyNTE0OTI6MTY1NDI1NTA5Ml9WNA)
+![3](./System_Implementaion-img/3.jpg)
 
 #### 2.1.3 接口
 
-![](https://sysumatrix.feishu.cn/space/api/box/stream/download/asynccode/?code=MWY1ZDFjOWE3Y2Y4YmZhYzFiN2ZjYWQ2M2Y4ZTQ3OTNfMHhoOVB6QWFjNzVOZEZXY2dMU2lSMUJzMWY2NWM5OGZfVG9rZW46Ym94Y25WRzFUaDhkUUh3UW5yVzhZVzBRMGNnXzE2NTQyNTE0OTI6MTY1NDI1NTA5Ml9WNA)
+![4](./System_Implementaion-img/4.jpg)
 
 ### 2.2 后端
 
 #### 2.2.1 流程图
 
-![](https://sysumatrix.feishu.cn/space/api/box/stream/download/asynccode/?code=ODYxNWQ3OWMxZGM0ZGI2MmY2ODNiYTNiNzRkNjYzYTVfcWdFaXBGYkEzOWdGYmdNVFkzSlk4bnlZNzF5dTloVlRfVG9rZW46Ym94Y25STGFMclZqVXgwY2tldk13Y2ptMmRjXzE2NTQyNTE0OTI6MTY1NDI1NTA5Ml9WNA)
+![5](./System_Implementaion-img/5.jpg)
 
 #### 2.2.2 时序图
 
-![](https://sysumatrix.feishu.cn/space/api/box/stream/download/asynccode/?code=MGZmYzBlNDA5ZmI5YWZlOWIzYjgzNGFjYWNhNjBmMWVfTzF6S1RJdUMzbVFmRHpWR0FUZjROeGpZSW9qNHlBbDBfVG9rZW46Ym94Y254dHh1bzNHSzVXWFVBc1liV0RYWjhjXzE2NTQyNTE0OTI6MTY1NDI1NTA5Ml9WNA)
+![6](./System_Implementaion-img/6.jpg)
 
 #### 2.2.3 接口
 
-![](https://sysumatrix.feishu.cn/space/api/box/stream/download/asynccode/?code=ZDlkNzhjMWZkZmNjMmUzOGU0Y2E3NDkwNDYwYjdkMzJfMVN5aXczVU1JYlJHSlY4YUg0NXJJQnBNR2dyZUhYc1ZfVG9rZW46Ym94Y24wTDVrZTFuVTdyMHdxRkp6eGNDMmxjXzE2NTQyNTE0OTI6MTY1NDI1NTA5Ml9WNA)
+![7](./System_Implementaion-img/7.jpg)
 
 
 
-3. ### 前后端交互接口约定
+### 2.3 前后端交互接口约定
 
 #### POST 同步仓库与云端
 
@@ -559,20 +551,21 @@ POST /api/create
 | msg        | string     | true       | none       | none       |
 | data       | string     | true       | none       | none       |
 
-## 实现源代码及运行截图
+## 3. 实现源代码及运行截图
 
 ### 初始界面
 
-![](https://sysumatrix.feishu.cn/space/api/box/stream/download/asynccode/?code=OTQzMTRiN2NlNWEzOWQ2MGMyNjFlZjJkYzMwMTcyNzNfTVJONFp4S3Y5cW5KcUJTUmNTNUJqTXEyTjFwY2ZQbE1fVG9rZW46Ym94Y25La1dqcGhqS3Bnb3k5QTZtN0VhUXNkXzE2NTQyNTE0MDI6MTY1NDI1NTAwMl9WNA)
+![8](System_Implementaion-img/8.png)
 
 ### 新建仓库界面
 
-![](https://sysumatrix.feishu.cn/space/api/box/stream/download/asynccode/?code=MmJlOGJiYTk3NzIxYzNlMWJlNWE2Njg5N2QzZWIzNjFfb3N6ZEoxenlhRjdsTWpLdmJmWEVLYU03TnhrQnZseWZfVG9rZW46Ym94Y25PZ0RlSEd6UTh0QnhPdFprQ3ZUbkNnXzE2NTQyNTE0MDI6MTY1NDI1NTAwMl9WNA)
+![9](System_Implementaion-img/9.png)
 
 ### 已编写文章界面
 
-![](https://sysumatrix.feishu.cn/space/api/box/stream/download/asynccode/?code=OTZhNTdlZTQzMjI4ODMzOTllOTNiYWRiYThhM2VkZWNfc1U1MnR4VmZGbzlvOVR2R29ZTmZ5QVQ4VXd1b3F0b3NfVG9rZW46Ym94Y25pUk14SzVVZ0h1OElCVlIydTlCMmZmXzE2NTQyNTE0MDI6MTY1NDI1NTAwMl9WNA)
+![10](System_Implementaion-img/10.png)
 
 ### 新建博文
 
-![](https://sysumatrix.feishu.cn/space/api/box/stream/download/asynccode/?code=OTRmZmM3MzNmOGQ5NTI0MjBkMmRjNjFkYzJkNjkwNTJfdVJFSmVUdXNSY2tYNjM4TkJYSjNoVzMxVmFJSWVsMjRfVG9rZW46Ym94Y25aVzVkTDNJZ2xqekM2N0hMTFc1YWRjXzE2NTQyNTE0MDI6MTY1NDI1NTAwMl9WNA)
+![11](System_Implementaion-img/11.png)
+
