@@ -1,3 +1,5 @@
+# Opening Report
+
 ## 方案：NBlog
 
 ### 选题目的与意义：

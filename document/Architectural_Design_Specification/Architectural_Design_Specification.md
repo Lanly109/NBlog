@@ -1,12 +1,10 @@
-# LabWeek11 - Preparing Architectural Design Specification
-
-
+# Architectural Design Specification
 
 # 概要设计说明书
 
 概要设计说明书又可称系统设计说明书，这里所说的系统是指程序系统。编制的目的是说明对程序 系统的设计考虑，包括程序系统的基本处理流程、程序系统的组织结构、模块划分、功能分配、接口设计、 运行设计、数据结构设计和出错处理设计等，为程序的详细设计提供基础。编制概要设计说明书的内容 要求如下：
 
-# 1引言
+# 1 引言
 
 ## 1.1 编写目的
 
@@ -52,13 +50,13 @@
 
 ### **IPO图**
 
-![img](pic/1.png)
+![1](./Architectural_Design_Specification-img/1.png)
 
 ### 数据实体
 
 本项目的数据实体主要包括博客、博文以及评论，具体实体规范细则如下：
 
-![img](pic/2.png)
+![2](./Architectural_Design_Specification-img/2.png)
 
 ## 2.2 运行环境
 
@@ -95,7 +93,7 @@ Inter或其他系列的微型计算机，内存 500MB以上，硬盘 500MB以上
 
 ### 数据流图 
 
-![img](pic/3.png)
+![3](./Architectural_Design_Specification-img/3.png)
 
 ### 处理流程
 
@@ -118,13 +116,13 @@ Inter或其他系列的微型计算机，内存 500MB以上，硬盘 500MB以上
 6. 用户请求退出
 7. 程序退出
 
-![img](pic/4.png)
+![4](./Architectural_Design_Specification-img/4.png)
 
 ## 2.4 结构
 
 
 
-![img](pic/5.png)
+![5](./Architectural_Design_Specification-img/5.png)
 
 本软件的结构组件主要包括前端界面，日志系统，插件系统，数据库系统， 游客， 评论管理系统， 用户， 博文管理系统，软件配置系统，服务器和文本编辑渲染系统。 
 
@@ -132,7 +130,7 @@ Inter或其他系列的微型计算机，内存 500MB以上，硬盘 500MB以上
 
 
 
-![img](pic/6.png)
+![6](./Architectural_Design_Specification-img/6.png)
 
 
 
