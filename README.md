@@ -6,7 +6,7 @@
 
 [中文版](./README_cn.md)
 
-For software documents, please refer to the "document" branch.
+For software documents, please refer to the `document` branch.
 
 Electron-based software that is friendly to beginners in building blogs and writing blog posts.
 
@@ -37,12 +37,13 @@ cd ../frontend
 # build frontend page
 yarn
 yarn install
+yarn build
 
 # build Electron
 yarn ebuild
 # the target file is in bin Folder
 
-cd bin
+cd build
 
 # Install it
 ``` 
@@ -54,6 +55,8 @@ cd bin
 - enjoy the writting.
 
 Tip: In the page of creating a blog, the creation of personal token is located in the upper right corner of the github page. Click the avatar, `settings->Developer settings->Personal acce ss tokens->Generate new token`. The token requires `repo` and `workflow` permissions.
+
+If the repository name does not exist in your github, `NBlog` will automatically create a new repository, or will **overwrite** if it exists.
 
 ## TODO List
 

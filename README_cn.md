@@ -35,12 +35,13 @@ cd ../frontend
 # 构建前端页面
 yarn
 yarn install
+yarn build
 
 # 构建electron应用
 yarn ebuild
 # 构建出的应用在build文件夹里
 
-cd bin
+cd build
 
 # 打开二进制安装包安装
 ``` 
